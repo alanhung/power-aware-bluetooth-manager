@@ -2,7 +2,7 @@
 
 namespace PowerAwareBluetooth.Controller.AI
 {
-    class TimeSample
+    public class TimeSample
     {
         public enum SampleResult
         {

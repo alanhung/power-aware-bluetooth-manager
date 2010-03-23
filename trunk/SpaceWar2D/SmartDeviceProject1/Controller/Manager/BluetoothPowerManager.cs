@@ -23,7 +23,7 @@ namespace PowerAwareBluetooth.Controller.Manager
 
         }
 
-        private TimeLine BuildGlobalTimeLine(TimeLine timeLineFromClassifier, List<Rule>)
+        private TimeLine BuildGlobalTimeLine(TimeLine timeLineFromClassifier, List<Rule>  rules)
         {
             return null;
         }

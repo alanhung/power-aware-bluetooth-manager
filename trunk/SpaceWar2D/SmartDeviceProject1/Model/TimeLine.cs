@@ -1,6 +1,6 @@
 ﻿namespace PowerAwareBluetooth.Model
 {
-    class TimeLine
+    public class TimeLine
     {
     }
 }
