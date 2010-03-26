@@ -56,5 +56,12 @@ namespace PowerAwareBluetooth.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Icon success {
+            get {
+                object obj = ResourceManager.GetObject("success", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
