@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows.Forms;
+using PowerAwareBluetooth.View;
 
-namespace SmartDeviceProject1
+namespace PowerAwareBluetooth
 {
     static class Program
     {
@@ -10,7 +12,7 @@ namespace SmartDeviceProject1
         [MTAThread]
         static void Main()
         {
-            //Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }
