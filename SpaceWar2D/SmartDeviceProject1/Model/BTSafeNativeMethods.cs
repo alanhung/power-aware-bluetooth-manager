@@ -10,17 +10,45 @@ namespace PowerAwareBluetooth.Model
     {
         private const string IRPROPS_DLL = "irprops.cpl";
         private const string KERNEL_DLL = "kernel32.dll";
+        private const string WINSOCK_DLL = "Ws2.dll";
+
+        #region Constants
+
+        //TODO: see that this is correct
+        public const Int32 NS_BTH = 16;
+
+        #endregion Constants
 
         #region Structs
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct BluetoothFindRadioParams
+        public struct BluetoothFindRadioParams
         {
             internal UInt32 dwSize;
             internal void Initialize()
             {
                 this.dwSize = (UInt32)Marshal.SizeOf(typeof(BluetoothFindRadioParams));
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct WSAQUERYSET
+        {
+            public Int32 dwSize;
+            public String szServiceInstanceName;
+            public IntPtr lpServiceClassId;
+            public IntPtr lpVersion;
+            public String lpszComment;
+            public Int32 dwNameSpace;
+            public IntPtr lpNSProviderId;
+            public String lpszContext;
+            public Int32 dwNumberOfProtocols;
+            public IntPtr lpafpProtocols;
+            public String lpszQueryString;
+            public Int32 dwNumberOfCsAddrs;
+            public IntPtr lpcsaBuffer;
+            public Int32 dwOutputFlags;
+            public IntPtr Blob;
         }
 
         #endregion Structs
@@ -53,8 +81,22 @@ namespace PowerAwareBluetooth.Model
         [DllImport(IRPROPS_DLL, SetLastError = true)]
         private static extern bool BluetoothFindRadioClose(ref IntPtr hFind);
 
+        #region WinSock
 
+        [DllImport(WINSOCK_DLL)]
+        public static extern int WSAStartup(ushort version, byte[] wsaData);
 
+        [DllImport(WINSOCK_DLL)]
+        public static extern int WSACleanup();
+
+        //TODO: see that WINSOCK_DLL is the right one
+        [DllImport(WINSOCK_DLL, CharSet = CharSet.Auto, SetLastError = true)] 
+        static extern Int32 WSALookupServiceBegin(WSAQUERYSET lpqsRestrictions, Int32 dwControlFlags, ref Int32 lphLookup);
+        #endregion WinSock
+
+        //[DllImport(WINSOCK_DLL, CharSet = CharSet.Auto, SetLastError = true)]
+        //static extern Int32 WSALookupServiceBegin(WSAQUERYSET lpqsRestrictions, Int32 dwControlFlags, ref Int32 lphLookup);
+        
         #endregion Methods
     }
 }
