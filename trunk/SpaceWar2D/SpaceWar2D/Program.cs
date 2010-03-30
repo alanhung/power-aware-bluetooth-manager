@@ -34,7 +34,7 @@ namespace SpaceWar2D
         [MTAThread]
         static void Main()
         {
-            Application.Run(new SpaceWarForm());
+            //Application.Run(new SpaceWarForm());
         }
     }
 }
