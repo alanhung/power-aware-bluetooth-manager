@@ -87,8 +87,7 @@ namespace PowerAwareBluetooth.Model
         /// event fired when bluetooth radio mode is changed
         /// </summary>
         public event BluetoothRadioModeChangedHandler BluetoothRadioModeChanged;
-
-       
+      
         #region Protected Methods
 
         protected void OnBluetoothRadioModeChanged()

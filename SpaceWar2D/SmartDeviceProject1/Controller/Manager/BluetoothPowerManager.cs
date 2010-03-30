@@ -18,6 +18,9 @@ namespace PowerAwareBluetooth.Controller.Manager
 
         public BluetoothPowerManager()
         {
+            //initialize adapter
+            m_BluetoothAdapter = new BluetoothAdapter();
+            
             // load rule list from the sim-card/hard disk
             m_RuleList = new RuleList();
             TimeInterval timeInterval1 = new TimeInterval(3, 0, 4, 0);
