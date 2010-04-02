@@ -91,6 +91,7 @@
             selectDaysButton.Size = new System.Drawing.Size(52, 22);
             selectDaysButton.TabIndex = 6;
             selectDaysButton.Text = "custom";
+            selectDaysButton.Click += new System.EventHandler(this.selectDaysButton_Click);
             // 
             // label1
             // 
@@ -172,6 +173,7 @@
             this.m_StartRuleTimePicker.ShowUpDown = true;
             this.m_StartRuleTimePicker.Size = new System.Drawing.Size(90, 22);
             this.m_StartRuleTimePicker.TabIndex = 10;
+            this.m_StartRuleTimePicker.ValueChanged += new System.EventHandler(this.TimePicker_ValueChanged);
             // 
             // m_EndRuleTimePicker
             // 
@@ -182,6 +184,7 @@
             this.m_EndRuleTimePicker.ShowUpDown = true;
             this.m_EndRuleTimePicker.Size = new System.Drawing.Size(90, 22);
             this.m_EndRuleTimePicker.TabIndex = 13;
+            this.m_EndRuleTimePicker.ValueChanged += new System.EventHandler(this.TimePicker_ValueChanged);
             // 
             // m_RadioButtonTurnOn
             // 
