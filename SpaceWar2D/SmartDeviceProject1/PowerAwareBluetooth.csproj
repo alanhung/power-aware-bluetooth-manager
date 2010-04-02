@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -62,6 +62,7 @@
     <Compile Include="Common\DataGridIconColumn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controller\AI\DecisionMaker.cs" />
     <Compile Include="Controller\AI\TimeClassifier.cs" />
     <Compile Include="Controller\AI\TimeSample.cs" />
     <Compile Include="Controller\Manager\BluetoothPowerManager.cs" />
@@ -83,6 +84,9 @@
     <EmbeddedResource Include="View\AddRuleForm.resx">
       <DependentUpon>AddRuleForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\CustomDaysForm.resx">
+      <DependentUpon>CustomDaysForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +104,12 @@
     </Compile>
     <Compile Include="View\AddRuleForm.Designer.cs">
       <DependentUpon>AddRuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomDaysForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CustomDaysForm.Designer.cs">
+      <DependentUpon>CustomDaysForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
