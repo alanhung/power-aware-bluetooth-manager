@@ -62,6 +62,7 @@
     <Compile Include="Common\DataGridIconColumn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controller\AI\Learner.cs" />
     <Compile Include="Controller\AI\TimeClassifier.cs" />
     <Compile Include="Controller\AI\TimeSample.cs" />
     <Compile Include="Controller\Manager\BluetoothPowerManager.cs" />
