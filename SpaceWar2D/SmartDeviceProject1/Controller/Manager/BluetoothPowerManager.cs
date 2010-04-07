@@ -37,6 +37,11 @@ namespace PowerAwareBluetooth.Controller.Manager
             
         }
 
+        public void Awake()
+        {
+
+        }
+
         /// <summary>
         /// manages the blue-tooth according to the <see cref="TimeLine"/>
         /// </summary>
