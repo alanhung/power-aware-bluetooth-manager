@@ -145,16 +145,17 @@ namespace PowerAwareBluetooth.Controller.AI
 
         /// <summary>
         /// gets and sets the minimum interval the  bluetooth is on 
+        /// works in minutes
         /// </summary>
-        public int SlicesForMinimumOnInterval
+        public int MinimumOnInterval
         {
             get
             {
-                return SLICES_FOR_MINIMUM_ON_INTERVAL * 2;
+                return SLICES_FOR_MINIMUM_ON_INTERVAL * 2 * TIME_SLICE_LENGTH;
             }
             set
             {
-                SLICES_FOR_MINIMUM_ON_INTERVAL = (value / 2);
+                SLICES_FOR_MINIMUM_ON_INTERVAL = value / (TIME_SLICE_LENGTH * 2);
             }
         }
         
