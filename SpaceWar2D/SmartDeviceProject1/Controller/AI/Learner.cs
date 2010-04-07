@@ -82,15 +82,19 @@ namespace PowerAwareBluetooth.Controller.AI
             ONE_MINUTE = 1,
             FIVE_MINUTE = 5,
             TEN_MINUTE = 10,
-            TWENTY_MINUTE = 20            
+            FIFTEEN_MINUTE = 15,
+            THIRTY_MINUTE = 30
         }
         
         //slices repeat after a week
         private static TimeSliceLength DEFAULT_SLICE_LENGTH = TimeSliceLength.TEN_MINUTE;
+        private static int DEFAULT_MINIMUM_ON_INTERVAL = 30; // in minutes
+        
         private int TIME_SLICE_LENGTH;
         private int TOTAL_TIME_SLICES_NUM;
         private int SLICES_PER_DAY;
         private int SLICES_PER_HOUR;
+        private int SLICES_FOR_MINIMUM_ON_INTERVAL; //represents the minimum time inetrval the bluetooth is on
 
         private StateMachine[] m_timeLine; 
 
@@ -104,6 +108,7 @@ namespace PowerAwareBluetooth.Controller.AI
             SLICES_PER_HOUR = minutesInHour / TIME_SLICE_LENGTH;
             SLICES_PER_DAY = SLICES_PER_HOUR * hoursInDay;
             TOTAL_TIME_SLICES_NUM = SLICES_PER_DAY * daysInWeek;
+            SLICES_FOR_MINIMUM_ON_INTERVAL = DEFAULT_MINIMUM_ON_INTERVAL / (TIME_SLICE_LENGTH * 2);
 
             m_timeLine = new StateMachine[TOTAL_TIME_SLICES_NUM];
             
@@ -120,15 +125,40 @@ namespace PowerAwareBluetooth.Controller.AI
         {
             if (result)
             {
-                m_timeLine[NowToInt()].IncrementState();
+                m_timeLine[NowToSliceNum()].IncrementState();
             }
             else
             {
-                m_timeLine[NowToInt()].DecrementState();
+                m_timeLine[NowToSliceNum()].DecrementState();
+            }
+        }
+
+        /// <summary>
+        /// whether to activate the bluetooth or not.
+        /// this function reffers to Now
+        /// </summary>
+        /// <returns></returns>
+        public bool ToActivate()
+        {
+            return IsCurrentStateInOnInterval();
+        }
+
+        /// <summary>
+        /// gets and sets the minimum interval the  bluetooth is on 
+        /// </summary>
+        public int SlicesForMinimumOnInterval
+        {
+            get
+            {
+                return SLICES_FOR_MINIMUM_ON_INTERVAL * 2;
+            }
+            set
+            {
+                SLICES_FOR_MINIMUM_ON_INTERVAL = (value / 2);
             }
         }
         
-        private int NowToInt()
+        private int NowToSliceNum()
         {
             DateTime currentTime = DateTime.Now;
             int day = (int) currentTime.DayOfWeek; //sunday = 0, monday = 1, ...
@@ -138,7 +168,24 @@ namespace PowerAwareBluetooth.Controller.AI
             return ((day) * SLICES_PER_DAY) + (hour * SLICES_PER_HOUR) + (minutes / TIME_SLICE_LENGTH);
         }
 
-        
+        private bool IsCurrentStateInOnInterval()
+        {
+            int currentSlice = NowToSliceNum();
+            
+            bool res = false;
+            //see whether one of the slices in the interval around the current slice is on
+            for (int i = (currentSlice - SLICES_FOR_MINIMUM_ON_INTERVAL); i < (currentSlice + SLICES_FOR_MINIMUM_ON_INTERVAL); i++)
+            {
+                if (m_timeLine[i].CurrentState >= StateMachine.States.ON)
+                {
+                    res = true;
+                    break;
+                }
+            }
+            return res;
+        }
+
+
 
     }
 
