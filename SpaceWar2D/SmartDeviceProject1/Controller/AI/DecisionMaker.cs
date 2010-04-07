@@ -1,17 +1,8 @@
-<<<<<<< .mine
+﻿<<<<<<< .mine
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-
-namespace PowerAwareBluetooth.Controller.AI
-{
-    public class DecisionMaker
-    {
-        private Learner m_Learner;
-    }
-}
-=======
 ﻿using System.Threading;
 
 namespace PowerAwareBluetooth.Controller.AI
@@ -54,4 +45,3 @@ namespace PowerAwareBluetooth.Controller.AI
 
     }
 }
->>>>>>> .r13
