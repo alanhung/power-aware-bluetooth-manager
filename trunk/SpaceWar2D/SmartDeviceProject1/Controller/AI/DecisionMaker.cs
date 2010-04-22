@@ -12,6 +12,7 @@ namespace PowerAwareBluetooth.Controller.AI
     {
         private Learner m_learner;
         private BluetoothAdapter m_bluetoothAdapter;
+        private BatteryAdapter m_BatteryAdapter = new BatteryAdapter();
         private RuleList m_rules;
 
         public DecisionMaker(BluetoothAdapter bluetoothAdapter, RuleList ruleList)
@@ -31,6 +32,7 @@ namespace PowerAwareBluetooth.Controller.AI
         /// <returns></returns>
         public bool IsNeedActive()
         {
+            //TODO TAL: consider battery power
             Rule rule = m_rules.GetRule(DateTime.Now);
             bool res; 
             if (rule != null)
@@ -46,6 +48,7 @@ namespace PowerAwareBluetooth.Controller.AI
 
         public void Sample()
         {
+            //TODO TAL: consider battery power
             bool result = m_bluetoothAdapter.SampleForOtherBluetooth();
             m_learner.Learn(result);
         }
