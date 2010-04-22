@@ -135,7 +135,7 @@ namespace PowerAwareBluetooth.Controller.AI
 
         /// <summary>
         /// whether to activate the bluetooth or not.
-        /// this function reffers to Now
+        /// this function refers to Now
         /// </summary>
         /// <returns></returns>
         public bool ToActivate()
@@ -175,6 +175,7 @@ namespace PowerAwareBluetooth.Controller.AI
             
             bool res = false;
             //see whether one of the slices in the interval around the current slice is on
+            //TODO: TAL - see that i is not negative in for
             for (int i = (currentSlice - SLICES_FOR_MINIMUM_ON_INTERVAL); i < (currentSlice + SLICES_FOR_MINIMUM_ON_INTERVAL); i++)
             {
                 if (m_timeLine[i].CurrentState >= StateMachine.States.ON)

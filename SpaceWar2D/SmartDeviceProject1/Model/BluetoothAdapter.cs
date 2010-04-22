@@ -40,7 +40,7 @@ namespace PowerAwareBluetooth.Model
         #region Methods
         
         /// <summary>
-        /// C'tor
+        /// creates the adapter and registers to blue-tooth events on the cellphone
         /// </summary>
         public BluetoothAdapter()
         {
@@ -49,7 +49,20 @@ namespace PowerAwareBluetooth.Model
             
             //register to registry bluetooth mode change event
             m_registryState = new RegistryState(RegistryPath, RegistryValue);
-            m_registryState.Changed += new ChangeEventHandler(RegistryBluetoothRadioModeChanged);
+            m_registryState.Changed += RegistryBluetoothRadioModeChanged;
+        }
+
+        /// <summary>
+        /// 1. activate bluetooth
+        /// 2. search for other bluetooth devices
+        /// 3. return bluetooth to previous mode
+        /// </summary>
+        /// <returns>true if other bluetooth devices are in range</returns>
+        public bool SampleForOtherBluetooth()
+        {
+            // TODO: TAL - implement me
+
+            return false;
         }
         
         /// <summary>
@@ -58,6 +71,7 @@ namespace PowerAwareBluetooth.Model
         /// <returns></returns>
         public bool IsOtherBluetoothExist()
         {             
+            //TODO: TAL - check if there is already a paired device
             BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices();
             return (btInfo.Length > 0);
 
@@ -82,6 +96,8 @@ namespace PowerAwareBluetooth.Model
             }
             set
             {
+                // TODO: TAL if the value changes the current blue-tooth state
+                // verify that the blue-tooth' state changed
                 m_radio.Mode = value;
             }
         }

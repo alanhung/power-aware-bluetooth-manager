@@ -1,27 +1,33 @@
 ﻿using System.Collections.Generic;
+using InTheHand.Net.Bluetooth;
 using PowerAwareBluetooth.Controller.AI;
 using PowerAwareBluetooth.Model;
 
 namespace PowerAwareBluetooth.Controller.Manager
 {
+    // TODO: ADAM - add support to wake up the gui when the user wants to
     class BluetoothPowerManager
     {
-        private TimeClassifier m_TimeClassifier;
-        private BluetoothAdapter m_BluetoothAdapter;
+//        private TimeClassifier m_TimeClassifier;
+        private BluetoothAdapter m_BluetoothAdapter = new BluetoothAdapter();
         private RuleList m_RuleList;
+        private DecisionMaker m_DecisionMaker;
 
         public RuleList RulesList
         {
             get { return m_RuleList; }
         }
 
+        /// <summary>
+        /// creates the bluetooth power manager
+        /// 1. initializes the adapter
+        /// 2. initializes the decision maker
+        /// </summary>
         public BluetoothPowerManager()
         {
-            //initialize adapter
-            m_BluetoothAdapter = new BluetoothAdapter();
-            
             // load rule list from the sim-card/hard disk
-            m_RuleList = new RuleList();
+            m_RuleList = LoadRuleList();
+            m_DecisionMaker = new DecisionMaker(m_BluetoothAdapter, m_RuleList);
             TimeInterval timeInterval1 = new TimeInterval(3, 0, 4, 0);
             Rule fakeRule1 = new Rule(
                 "adam rule",
@@ -37,9 +43,10 @@ namespace PowerAwareBluetooth.Controller.Manager
             
         }
 
-        public void Awake()
+        private RuleList LoadRuleList()
         {
-
+            // TODO: ADAM - get the rule list from the c:
+            return new RuleList();
         }
 
         /// <summary>
@@ -47,12 +54,27 @@ namespace PowerAwareBluetooth.Controller.Manager
         /// </summary>
         public void Start()
         {
-            // gets the time line from the classifier
+            while(true)
+            {
+                // gets the decision from the DecisionMaker and handles the bluetooth device
+                if (m_DecisionMaker.IsNeedActive())
+                {
+                    m_BluetoothAdapter.RadioMode = RadioMode.Discoverable;
+                }
+                else
+                {
+                    m_BluetoothAdapter.RadioMode = RadioMode.PowerOff;
+                }
 
-            // manages the power according to the timeline
+                //sample
+                m_DecisionMaker.Sample();
 
-            // needs to register to blue tooth events
+                // get the next time to wake-up
+                int timeToSleepMillisec = m_DecisionMaker.CalculateCurrentWaitTime();
 
+                // sleep
+                m_DecisionMaker.Sleep(timeToSleepMillisec);
+            }
         }
 
         private TimeLine BuildGlobalTimeLine(TimeLine timeLineFromClassifier, List<Rule>  rules)
