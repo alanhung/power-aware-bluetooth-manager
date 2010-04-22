@@ -2,6 +2,7 @@
 
 namespace PowerAwareBluetooth.Model
 {
+    // TODO: adam - add rules collision
     public class Rule
     {
         /// <summary>

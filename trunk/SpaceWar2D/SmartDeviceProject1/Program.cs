@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using PowerAwareBluetooth.Controller.Manager;
 using PowerAwareBluetooth.View;
 
 namespace PowerAwareBluetooth
@@ -9,10 +10,16 @@ namespace PowerAwareBluetooth
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [MTAThread]
+//        [MTAThread]
+//        static void Main()
+//        {
+//            Application.Run(new MainForm());
+//        }
+
         static void Main()
         {
-            Application.Run(new MainForm());
+            BluetoothPowerManager bluetoothPowerManager = new BluetoothPowerManager();
+            bluetoothPowerManager.Start();
         }
     }
 }
