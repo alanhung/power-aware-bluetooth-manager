@@ -176,6 +176,8 @@ namespace PowerAwareBluetooth.Controller.AI
             bool res = false;
             //see whether one of the slices in the interval around the current slice is on
             //TODO: TAL - see that i is not negative in for
+            //TODO: remove this - debug that avoids null exception
+            return res;
             for (int i = (currentSlice - SLICES_FOR_MINIMUM_ON_INTERVAL); i < (currentSlice + SLICES_FOR_MINIMUM_ON_INTERVAL); i++)
             {
                 if (m_timeLine[i].CurrentState >= StateMachine.States.ON)

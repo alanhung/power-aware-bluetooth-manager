@@ -8,9 +8,9 @@ namespace PowerAwareBluetooth.View
     public partial class AddRuleForm : Form
     {
         private Rule m_RuleObject;
-        //private WeekDays m_CustomWeekDays;
         private bool[] m_WaitingTimePickerValueChange = {false, false};
         private bool[] m_SelectedDayBoolArray;
+        private RuleList m_RuleList;
 
         public AddRuleForm()
         {
@@ -49,10 +49,30 @@ namespace PowerAwareBluetooth.View
         }
 
         /// <summary>
+        /// gets or sets the rules list member
+        /// </summary>
+        internal RuleList RulesList
+        {
+            get
+            {
+                return m_RuleList;
+            }
+            set
+            {
+                m_RuleList = value;
+            }
+        }
+
+        /// <summary>
         /// saves the rule according to the data that was provided by the user
         /// the rule is saved to <see cref="m_RuleObject"/>
         /// </summary>
         private void SaveRuleObject()
+        {
+            m_RuleObject = CreateRuleFromUI();
+        }
+
+        private Rule CreateRuleFromUI()
         {
             if (!string.IsNullOrEmpty(this.m_NameComboBox.Text))
             {
@@ -64,16 +84,15 @@ namespace PowerAwareBluetooth.View
                                                      ? RuleActionEnum.TurnOn
                                                      : RuleActionEnum.TurnOff);
                 WeekDays weekDays = GetSelectedDays();
-//                SelectedDays selectedDays = Enum.Parse(typeof (SelectedDays), m_DaysComboBox.Text, true);
-//
-//
-                m_RuleObject = new Rule(
+
+                return new Rule(
                     this.m_NameComboBox.Text,
                     timeInterval,
                     ruleActionEnum,
                     weekDays,
                     this.m_ActiveCheckBox.Checked);
             }
+            return null;
         }
 
         private WeekDays GetSelectedDays()
@@ -118,19 +137,33 @@ namespace PowerAwareBluetooth.View
         }
 
         /// <summary>
-        /// verifies that the user entered correct values for the rule.
+        /// verifies two things:
+        /// 1. that the user entered correct values for the rule.
+        /// 2. that the rule does not collide with an already defined rule.
         /// a message box will appear with information regarding errors the user
         /// made during the creation of the rule.
         /// </summary>
         /// <returns>true if all the values for the rule are OK, false otherwise</returns>
         private bool VerifyValues()
         {
+            #region /// Initalizes the StringBuilder ///
+
             StringBuilder errorString = new StringBuilder(256);
             int errorNumber = 0;
+
+            #endregion
+
+            #region /// Verifies that the name of the rule exists ///
+
             if (string.IsNullOrEmpty(m_NameComboBox.Text))
             {
                 errorString.AppendLine(GetErrorString(++errorNumber, "No name was provided"));
             }
+
+            #endregion
+
+            #region /// Verifies that at least one day was selected for this rule ///
+
             Object selectedDays = m_DaysComboBox.SelectedItem;
             if (selectedDays is SelectedDays)
             {
@@ -162,6 +195,11 @@ namespace PowerAwareBluetooth.View
                 }
 
             }
+
+            #endregion
+
+            #region /// Verifies that the times are correct ///
+            
             int startHour, startMinute, endHour, endMinute;
             GetTime(m_StartRuleTimePicker, out startHour, out startMinute);
             GetTime(m_EndRuleTimePicker, out endHour, out endMinute);
@@ -169,6 +207,23 @@ namespace PowerAwareBluetooth.View
             {
                 errorString.AppendLine(GetErrorString(++errorNumber, "the start time is after the end time"));
             }
+
+            #endregion
+
+            #region /// Verifies that the rule does not collide with another rule ///
+
+            Rule tmpRule = CreateRuleFromUI();
+            Rule collidingRule = RulesList.GetCollidingRule(tmpRule);
+            if (collidingRule != null)
+            {
+                string message = String.Format("The new rule collides with another rule ({0})", collidingRule.Name);
+                errorString.AppendLine(GetErrorString(++errorNumber, message));
+            }
+            
+            #endregion
+
+            #region /// Shows the errors or returns ///
+
             if (errorNumber == 0)
             {
                 return true;
@@ -181,6 +236,7 @@ namespace PowerAwareBluetooth.View
                 return false;
             }
 
+            #endregion
         }
 
         private void TimePicker_ValueChanged(object sender, EventArgs e)
