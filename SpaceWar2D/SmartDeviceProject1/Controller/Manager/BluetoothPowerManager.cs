@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using InTheHand.Net.Bluetooth;
 using PowerAwareBluetooth.Controller.AI;
+using PowerAwareBluetooth.Controller.IO;
 using PowerAwareBluetooth.Model;
 
 namespace PowerAwareBluetooth.Controller.Manager
@@ -8,7 +9,6 @@ namespace PowerAwareBluetooth.Controller.Manager
     // TODO: ADAM (Phone dependent) - add support to wake up the gui when the user wants to
     class BluetoothPowerManager
     {
-//        private TimeClassifier m_TimeClassifier;
         private BluetoothAdapter m_BluetoothAdapter = new BluetoothAdapter();
         private RuleList m_RuleList;
         private DecisionMaker m_DecisionMaker;
@@ -45,8 +45,12 @@ namespace PowerAwareBluetooth.Controller.Manager
 
         private RuleList LoadRuleList()
         {
-            // TODO: ADAM (phone-dependent) - get the rule list from the c:
-            return new RuleList();
+            RuleList retList = IOManager.Load() as RuleList;
+            if (retList == null)
+            {
+                retList = new RuleList();
+            }
+            return retList;
         }
 
         /// <summary>

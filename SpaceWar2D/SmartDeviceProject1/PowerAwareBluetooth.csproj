@@ -46,6 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Clarius.UI.OrientationAware" />
+    <Reference Include="CompactFormatter, Version=1.0.0.27374, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>external\CompactFormatter.dll</HintPath>
+    </Reference>
     <Reference Include="InTheHand.Net.Personal, Version=2.3.0.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.WindowsMobile.Status, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
@@ -67,6 +71,7 @@
     <Compile Include="Controller\AI\Learner.cs" />
     <Compile Include="Controller\AI\TimeClassifier.cs" />
     <Compile Include="Controller\AI\TimeSample.cs" />
+    <Compile Include="Controller\IO\IOManager.cs" />
     <Compile Include="Controller\Manager\BluetoothPowerManager.cs" />
     <Compile Include="Model\BatteryAdapter.cs" />
     <Compile Include="Model\BluetoothAdapter.cs" />
