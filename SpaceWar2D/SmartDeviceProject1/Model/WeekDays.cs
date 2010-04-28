@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PowerAwareBluetooth.Settings;
 
 namespace PowerAwareBluetooth.Model
@@ -121,6 +122,17 @@ namespace PowerAwareBluetooth.Model
             return m_SelectedDays[dayNumber];
         }
 
+        /// <summary>
+        /// tests if the given day is selected
+        /// </summary>
+        /// <param name="dayOfWeek">the day to test</param>
+        /// <returns></returns>
+        public bool IsDaySelected(DayOfWeek dayOfWeek)
+        {
+            int day = (int) dayOfWeek;
+            return IsDaySelected(day);
+        }
+
         public SelectedDays SelectedDaysEnum
         {
             get { return m_SelectedDaysEnum; }
@@ -137,5 +149,7 @@ namespace PowerAwareBluetooth.Model
 
             return list;
         }
+
+
     }
 }

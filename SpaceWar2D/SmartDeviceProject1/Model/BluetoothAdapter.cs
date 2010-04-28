@@ -98,7 +98,10 @@ namespace PowerAwareBluetooth.Model
             {
                 // TODO: TAL if the value changes the current blue-tooth state
                 // verify that the blue-tooth' state changed
-                m_radio.Mode = value;
+                // TODO: remove this - debug to avoid null exception
+               
+                //m_radio.Mode = value;
+                
             }
         }
 

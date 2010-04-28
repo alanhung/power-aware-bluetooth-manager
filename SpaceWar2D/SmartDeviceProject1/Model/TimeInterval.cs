@@ -77,5 +77,27 @@ namespace PowerAwareBluetooth.Model
         {
             return (value >= min && value <= max);
         }
+
+        /// <summary>
+        /// tests if the given time (expressed in hour and minute) is
+        /// contained in this time-interval.
+        /// </summary>
+        /// <param name="hour">the hour in the day</param>
+        /// <param name="minute">the minute in the hour</param>
+        /// <returns>true if is contained in this interval, false otherwise</returns>
+        public bool Contains(int hour, int minute)
+        {
+            bool result = (StartHour < hour && hour < EndHour ||
+                           (StartHour == hour && hour < EndHour && StartMinutes <= minute) ||
+                           (StartHour < hour && hour == EndHour && minute < EndMinutes) ||
+                           (StartHour == EndHour && StartHour == hour && StartMinutes <= minute && minute < EndMinutes));
+            return result;
+        }
+
+        public bool IsOverlap(TimeInterval otherTimeInterval)
+        {
+            // use contain
+            return false;
+        }
     }
 }

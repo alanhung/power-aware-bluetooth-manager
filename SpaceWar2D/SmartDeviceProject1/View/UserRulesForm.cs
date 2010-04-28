@@ -41,6 +41,7 @@ namespace PowerAwareBluetooth.View
             DataGridTableStyle dataGridTableStyle = m_RulesListGrid.TableStyles["RuleList"];
 
             DataGridIconColumn dataGridIconColumn = new DataGridIconColumn();
+            dataGridIconColumn.Center = true;
             dataGridIconColumn.ColumnIcon = Resources.success;
             dataGridIconColumn.MappingName = "Enabled";
             dataGridIconColumn.HeaderText = "Enabled";
@@ -49,10 +50,11 @@ namespace PowerAwareBluetooth.View
 
             Size gridSize = m_RulesListGrid.Size;
             int totalWidth = gridSize.Width;
-            const int enabledColumnWidth = 50;
-
+            const int gap = 5;
+            const int enabledColumnWidth = 70;
+            int nameColumnWidth = totalWidth - enabledColumnWidth - gap;
             m_RulesListGrid.TableStyles["RuleList"].GridColumnStyles["Enabled"].Width = enabledColumnWidth;
-            m_RulesListGrid.TableStyles["RuleList"].GridColumnStyles["Name"].Width = totalWidth - enabledColumnWidth;
+            m_RulesListGrid.TableStyles["RuleList"].GridColumnStyles["Name"].Width = nameColumnWidth;
         }
 
         private void removeRuleButton_Click(object sender, System.EventArgs e)
@@ -76,6 +78,7 @@ namespace PowerAwareBluetooth.View
         private void addNewRuleButton_Click(object sender, System.EventArgs e)
         {
             AddRuleForm addRuleForm = new AddRuleForm();
+            addRuleForm.RulesList = BindedRuleList;
             if (addRuleForm.ShowDialog() == DialogResult.OK)
             {
                 BindedRuleList.Add(addRuleForm.RuleObject);
@@ -89,6 +92,7 @@ namespace PowerAwareBluetooth.View
             {
                 Rule selectedRule = BindedRuleList[selectedRow];
                 AddRuleForm addRuleForm = new AddRuleForm(selectedRule);
+                addRuleForm.RulesList = BindedRuleList;
                 if (addRuleForm.ShowDialog() == DialogResult.OK)
                 {
                     BindedRuleList[selectedRow] = addRuleForm.RuleObject;

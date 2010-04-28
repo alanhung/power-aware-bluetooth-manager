@@ -1,4 +1,5 @@
-﻿using PowerAwareBluetooth.Settings;
+﻿using System;
+using PowerAwareBluetooth.Settings;
 
 namespace PowerAwareBluetooth.Model
 {
@@ -88,6 +89,39 @@ namespace PowerAwareBluetooth.Model
         {
             get { return m_Enabled; }
             set { m_Enabled = value; }
+        }
+
+        /// <summary>
+        /// tests if the rule is relevant for the specified time.
+        /// a rule is relevant if it should be activated when the given time
+        /// is reached.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public bool IsRelevant(DateTime dateTime)
+        {
+            bool result =
+                Enabled &&
+                m_ActiveWeekDays.IsDaySelected(dateTime.DayOfWeek) &&
+                m_TimeInterval.Contains(dateTime.Hour, dateTime.Minute);
+            return result;
+        }
+
+        public bool IsCollidesWith(Rule ruleToTest)
+        {
+            for (int i = 0; i < Constants.DAYS_IN_WEEK; ++i)
+            {
+                // finds a day that is relevant for both rules
+                if (m_ActiveWeekDays.IsDaySelected(i) && ruleToTest.m_ActiveWeekDays.IsDaySelected(i))
+                {
+                    if (m_TimeInterval.IsOverlap(ruleToTest.m_TimeInterval))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

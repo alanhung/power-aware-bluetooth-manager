@@ -5,7 +5,7 @@ using PowerAwareBluetooth.Model;
 
 namespace PowerAwareBluetooth.Controller.Manager
 {
-    // TODO: ADAM - add support to wake up the gui when the user wants to
+    // TODO: ADAM (Phone dependent) - add support to wake up the gui when the user wants to
     class BluetoothPowerManager
     {
 //        private TimeClassifier m_TimeClassifier;
@@ -45,7 +45,7 @@ namespace PowerAwareBluetooth.Controller.Manager
 
         private RuleList LoadRuleList()
         {
-            // TODO: ADAM - get the rule list from the c:
+            // TODO: ADAM (phone-dependent) - get the rule list from the c:
             return new RuleList();
         }
 
@@ -67,7 +67,7 @@ namespace PowerAwareBluetooth.Controller.Manager
                 }
 
                 //sample
-                m_DecisionMaker.Sample();
+                // m_DecisionMaker.Sample();
 
                 // get the next time to wake-up
                 int timeToSleepMillisec = m_DecisionMaker.CalculateCurrentWaitTime();

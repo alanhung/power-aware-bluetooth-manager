@@ -44,6 +44,15 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // okButton
+            // 
+            okButton.Location = new System.Drawing.Point(151, 227);
+            okButton.Name = "okButton";
+            okButton.Size = new System.Drawing.Size(72, 26);
+            okButton.TabIndex = 1;
+            okButton.Text = "OK";
+            okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
             // m_Sunday
             // 
             this.m_Sunday.Location = new System.Drawing.Point(16, 35);
@@ -122,15 +131,6 @@
             this.label1.Size = new System.Drawing.Size(204, 23);
             this.label1.Text = "Select Days";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // okButton
-            // 
-            okButton.Location = new System.Drawing.Point(151, 227);
-            okButton.Name = "okButton";
-            okButton.Size = new System.Drawing.Size(72, 26);
-            okButton.TabIndex = 1;
-            okButton.Text = "OK";
-            okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // CustomDaysForm
             // 
