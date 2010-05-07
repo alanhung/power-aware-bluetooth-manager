@@ -70,19 +70,16 @@ namespace PowerAwareBluetooth.Model
         /// </summary>
         /// <returns></returns>
         public bool IsOtherBluetoothExist()
-        {             
-            //TODO: TAL - check if there is already a paired device
-            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices();
+        {     
+            //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
+            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10 , true, true, false);
+           
             return (btInfo.Length > 0);
-
-            
-
 
             //initialize parameters
             //BTSafeNativeMethods.WSAQUERYSET wsQuerySet = new BTSafeNativeMethods.WSAQUERYSET();
             //wsQuerySet.dwSize = System.Runtime.InteropServices.Marshal.SizeOf(wsQuerySet);
-            //wsQuerySet.dwNameSpace = BTSafeNativeMethods.NS_BTH;
-           
+            //wsQuerySet.dwNameSpace = BTSafeNativeMethods.NS_BTH;           
         }
 
         /// <summary>
