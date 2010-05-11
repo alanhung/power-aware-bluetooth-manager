@@ -14,7 +14,6 @@ namespace PowerAwareBluetooth.Model
 
         #region Constants
 
-        //TODO: TAL see that this is correct
         public const Int32 NS_BTH = 16;
 
         #endregion Constants
@@ -89,7 +88,6 @@ namespace PowerAwareBluetooth.Model
         [DllImport(WINSOCK_DLL)]
         public static extern int WSACleanup();
 
-        //TODO: TAL see that WINSOCK_DLL is the right one
         [DllImport(WINSOCK_DLL, CharSet = CharSet.Auto, SetLastError = true)] 
         static extern Int32 WSALookupServiceBegin(WSAQUERYSET lpqsRestrictions, Int32 dwControlFlags, ref Int32 lphLookup);
         #endregion WinSock
