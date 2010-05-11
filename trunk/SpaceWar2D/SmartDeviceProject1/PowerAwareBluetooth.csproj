@@ -75,6 +75,7 @@
     <Compile Include="Controller\Manager\BluetoothPowerManager.cs" />
     <Compile Include="Model\BatteryAdapter.cs" />
     <Compile Include="Model\BluetoothAdapter.cs" />
+    <Compile Include="Model\BluetoothAdapterConstants.cs" />
     <Compile Include="Model\BTSafeNativeMethods.cs" />
     <Compile Include="Model\Rule.cs" />
     <Compile Include="Model\RuleActionEnum.cs" />
