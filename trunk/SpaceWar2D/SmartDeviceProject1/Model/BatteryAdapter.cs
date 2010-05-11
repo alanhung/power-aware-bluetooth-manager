@@ -4,7 +4,7 @@ namespace PowerAwareBluetooth.Model
 {
     internal class BatteryAdapter
     {
-        // TODO: TAL - use BatteryLow && BatteryCharching properties instead
+        // TODO: TAL - use BatteryLow && BatteryCharching properties instead - done
         public int BatteryPercentage
         {
             get
@@ -18,6 +18,7 @@ namespace PowerAwareBluetooth.Model
         /// </summary>
         public bool BatteryLow
         {
+            //TODO: ADAM : check this logic - should this be && or || ?
             get
             {
                 return
