@@ -67,7 +67,7 @@ namespace PowerAwareBluetooth.Model
             m_radio.Mode = RadioMode.Discoverable;
             
             //2.
-            bool res = SampleForOtherBluetooth();
+            bool res = IsOtherBluetoothExist();
 
             //3.
             m_radio.Mode = last_mode;
@@ -75,22 +75,7 @@ namespace PowerAwareBluetooth.Model
             return res;
         }
         
-        /// <summary>
-        /// Is bluetooth device picking up another bluetooth signal
-        /// </summary>
-        /// <returns></returns>
-        private bool IsOtherBluetoothExist()
-        {     
-            //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
-            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10 , true, true, false);
-           
-            return (btInfo.Length > 0);
-
-            //initialize parameters
-            //BTSafeNativeMethods.WSAQUERYSET wsQuerySet = new BTSafeNativeMethods.WSAQUERYSET();
-            //wsQuerySet.dwSize = System.Runtime.InteropServices.Marshal.SizeOf(wsQuerySet);
-            //wsQuerySet.dwNameSpace = BTSafeNativeMethods.NS_BTH;           
-        }
+      
 
         /// <summary>
         /// Property for bluetooth radio mode
@@ -103,8 +88,6 @@ namespace PowerAwareBluetooth.Model
             }
             set
             {
-                // TODO: TAL if the value changes the current blue-tooth state
-                // verify that the blue-tooth' state changed
                 // TODO: remove this - debug to avoid null exception
                
                 //m_radio.Mode = value;
@@ -151,6 +134,23 @@ namespace PowerAwareBluetooth.Model
         }
 
         #endregion Protected Methods
+
+        /// <summary>
+        /// Is bluetooth device picking up another bluetooth signal
+        /// </summary>
+        /// <returns></returns>
+        private bool IsOtherBluetoothExist()
+        {
+            //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
+            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10, true, true, false);
+
+            return (btInfo.Length > 0);
+
+            //initialize parameters
+            //BTSafeNativeMethods.WSAQUERYSET wsQuerySet = new BTSafeNativeMethods.WSAQUERYSET();
+            //wsQuerySet.dwSize = System.Runtime.InteropServices.Marshal.SizeOf(wsQuerySet);
+            //wsQuerySet.dwNameSpace = BTSafeNativeMethods.NS_BTH;           
+        }
 
         #endregion Methods
 
