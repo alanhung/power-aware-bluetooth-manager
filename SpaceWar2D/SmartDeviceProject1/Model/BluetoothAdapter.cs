@@ -60,16 +60,26 @@ namespace PowerAwareBluetooth.Model
         /// <returns>true if other bluetooth devices are in range</returns>
         public bool SampleForOtherBluetooth()
         {
-            // TODO: TAL - implement me
+            //remember bluetooth last mode of operation
+            RadioMode last_mode = m_radio.Mode;
+            
+            //1.
+            m_radio.Mode = RadioMode.Discoverable;
+            
+            //2.
+            bool res = SampleForOtherBluetooth();
 
-            return false;
+            //3.
+            m_radio.Mode = last_mode;
+            
+            return res;
         }
         
         /// <summary>
         /// Is bluetooth device picking up another bluetooth signal
         /// </summary>
         /// <returns></returns>
-        public bool IsOtherBluetoothExist()
+        private bool IsOtherBluetoothExist()
         {     
             //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
             BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10 , true, true, false);
