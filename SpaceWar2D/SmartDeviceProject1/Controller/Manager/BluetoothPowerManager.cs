@@ -40,6 +40,7 @@ namespace PowerAwareBluetooth.Controller.Manager
                 new WeekDays(SelectedDays.Weekend), false);
             m_RuleList.Add(fakeRule1);
             m_RuleList.Add(fakeRule2);
+            bool res = m_DecisionMaker.IsNeedActive();
             
         }
 
