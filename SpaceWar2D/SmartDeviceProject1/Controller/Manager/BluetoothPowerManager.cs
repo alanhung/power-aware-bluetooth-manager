@@ -40,7 +40,7 @@ namespace PowerAwareBluetooth.Controller.Manager
                 new WeekDays(SelectedDays.Weekend), false);
             m_RuleList.Add(fakeRule1);
             m_RuleList.Add(fakeRule2);
-            bool res = m_DecisionMaker.IsNeedActive();
+            RadioMode res = m_DecisionMaker.RadioModeDecided();
             
         }
 
@@ -61,18 +61,17 @@ namespace PowerAwareBluetooth.Controller.Manager
         {
             while(true)
             {
+                //disable learning before changing bluetooth state
+                m_DecisionMaker.EnableLearning = false;
+
                 // gets the decision from the DecisionMaker and handles the bluetooth device
-                if (m_DecisionMaker.IsNeedActive())
-                {
-                    m_BluetoothAdapter.RadioMode = RadioMode.Discoverable;
-                }
-                else
-                {
-                    m_BluetoothAdapter.RadioMode = RadioMode.PowerOff;
-                }
+                m_BluetoothAdapter.RadioMode = m_DecisionMaker.RadioModeDecided();
+                
+                //enable learning
+                m_DecisionMaker.EnableLearning = true;
 
                 //sample
-                // m_DecisionMaker.Sample();
+                m_DecisionMaker.Sample();
 
                 // get the next time to wake-up
                 int timeToSleepMillisec = m_DecisionMaker.CalculateCurrentWaitTime();
