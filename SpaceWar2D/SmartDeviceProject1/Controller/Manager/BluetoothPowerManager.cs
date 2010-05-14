@@ -28,11 +28,11 @@ namespace PowerAwareBluetooth.Controller.Manager
             // load rule list from the sim-card/hard disk
             m_RuleList = LoadRuleList();
             m_DecisionMaker = new DecisionMaker(m_BluetoothAdapter, m_RuleList);
-            TimeInterval timeInterval1 = new TimeInterval(3, 0, 4, 0);
+            TimeInterval timeInterval1 = new TimeInterval(12, 0, 14, 0);
             Rule fakeRule1 = new Rule(
                 "adam rule",
                 timeInterval1,
-                RuleActionEnum.TurnOff,
+                RuleActionEnum.TurnOn,
                 new WeekDays(SelectedDays.Everyday), true);
             TimeInterval timeInterval2 = new TimeInterval(13, 10, 14, 20);
             Rule fakeRule2 = new Rule(
@@ -71,6 +71,7 @@ namespace PowerAwareBluetooth.Controller.Manager
                 m_DecisionMaker.EnableLearning = true;
 
                 //sample
+                //TODO: TAL see that sampling is done once per time slice
                 m_DecisionMaker.Sample();
 
                 // get the next time to wake-up

@@ -10,16 +10,16 @@ namespace PowerAwareBluetooth
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [MTAThread]
+        //[MTAThread]
+        //static void Main()
+        //{
+        //    Application.Run(new MainForm());
+        //}
+
         static void Main()
         {
-            Application.Run(new MainForm());
+            BluetoothPowerManager bluetoothPowerManager = new BluetoothPowerManager();
+            bluetoothPowerManager.Start();
         }
-
-//        static void Main()
-//        {
-//            BluetoothPowerManager bluetoothPowerManager = new BluetoothPowerManager();
-//            bluetoothPowerManager.Start();
-//        }
     }
 }

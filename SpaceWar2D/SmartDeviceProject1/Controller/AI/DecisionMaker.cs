@@ -164,7 +164,8 @@ namespace PowerAwareBluetooth.Controller.AI
         public int CalculateCurrentWaitTime()
         {
             // TODO: TAL implement me
-            return m_waitTimeBetweenSamples;
+            return 1000;
+            //return m_waitTimeBetweenSamples;
         }
 
         /// <summary>

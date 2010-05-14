@@ -142,7 +142,9 @@ namespace PowerAwareBluetooth.Model
         private bool IsOtherBluetoothExist()
         {
             //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
-            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10, true, true, false);
+
+            //TODO: see that this is correct 
+            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10, true, false, false);
 
             return (btInfo.Length > 0);
 
