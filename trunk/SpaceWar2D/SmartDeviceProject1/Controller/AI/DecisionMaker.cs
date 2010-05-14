@@ -1,8 +1,8 @@
-﻿﻿using System;
+﻿?using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-﻿using System.Threading;
+?using System.Threading;
 using PowerAwareBluetooth.Model;
 using InTheHand.Net.Bluetooth;
 
@@ -10,10 +10,18 @@ namespace PowerAwareBluetooth.Controller.AI
 {
     internal class DecisionMaker
     {
+        #region Members
+
         private Learner m_learner;
         private BluetoothAdapter m_bluetoothAdapter;
         private BatteryAdapter m_BatteryAdapter = new BatteryAdapter();
         private RuleList m_rules;
+        
+        private bool m_enableLearning = true;
+        private DateTime m_waitAfterUserControl = DateTime.MinValue;
+        private int m_waitTimeBetweenSamples = BluetoothAdapterConstants.Learning.DEFAULT_WAITING_TIME_BETWEEN_SAMPLES;
+
+        #endregion Members
 
         public DecisionMaker(BluetoothAdapter bluetoothAdapter, RuleList ruleList)
         {
@@ -27,30 +35,80 @@ namespace PowerAwareBluetooth.Controller.AI
         }
 
         /// <summary>
-        /// checks if the blue-tooth device should be activated
+        /// return the decision maker decision (what radio mode should the bluetooth be in)
         /// </summary>
         /// <returns></returns>
-        public bool IsNeedActive()
+        public RadioMode RadioModeDecided()
         {
-            //TODO TAL: consider battery power
-            Rule rule = m_rules.GetRule(DateTime.Now);
-            bool res; 
-            if (rule != null)
+            //TODO TAL: consider battery power - done!
+            
+            RadioMode res;
+            if (DateTime.Now < m_waitAfterUserControl)
             {
-                res = rule.RuleAction == RuleActionEnum.TurnOn;
+                res = m_bluetoothAdapter.RadioMode;
             }
             else
             {
-                res =  m_learner.ToActivate();
+                //check if user defined rule for the current time
+                Rule rule = m_rules.GetRule(DateTime.Now);
+
+                if (rule != null)
+                {
+                    if(rule.RuleAction == RuleActionEnum.TurnOn)
+                    {
+                        res = RadioMode.Discoverable;
+                    }
+                    else
+                    {
+                        res = RadioMode.PowerOff;
+                    }
+                    
+                }
+                else
+                {
+                    //no rule - go according to learner and battery power
+                    bool learnerDecision = m_learner.ToActivate();
+                    res = RadioMode.PowerOff;
+                    if (m_learner.ToActivate())
+                    {
+                        //listen to learner only if battery is not low or battery is charging
+                        if (!m_BatteryAdapter.BatteryLow || m_BatteryAdapter.BatteryCharching)
+                        {
+                            res = RadioMode.Discoverable;
+                        }
+                    }
+                }
+
             }
+            
             return res;
         }
 
+        /// <summary>
+        /// sample for other bluetooth and learn the result
+        /// </summary>
         public void Sample()
         {
-            //TODO TAL: consider battery power
+            //TODO TAL: consider battery power - should this be here or in the decision making? - done!
             bool result = m_bluetoothAdapter.SampleForOtherBluetooth();
             m_learner.Learn(result);
+        }
+
+        /// <summary>
+        /// enable or disable the learning mechanism
+        /// one should set this flag to false if he's about to activate the bluetooth
+        /// and remember to turn back on after bluetooth is activated
+        /// </summary>
+        public bool EnableLearning
+        {
+            get
+            {
+                return m_enableLearning;
+            }
+            set
+            {
+                m_enableLearning = value;
+            }
         }
 
         /// <summary>
@@ -59,23 +117,30 @@ namespace PowerAwareBluetooth.Controller.AI
         private void HandleBluetoothRadioModeChanged()
         {
             //TODO: TAL improve this rotten logic - ignore the times when radio mode is changed
-            //because of the manager operation
+            //because of the manager operation - done
 
             // if we need to wake up the manager: WakeUp()
 
-            //if radio mode changed to discoverable then learn - "user uses his bluetooth"
-            if (m_bluetoothAdapter.RadioMode == RadioMode.Discoverable)
+            //TODO: Tal - decision maker should remember that user de-activated the bluetooth and 
+            //not turn it on next time the manager wakes up - done
+            if (m_enableLearning)
             {
-                m_learner.Learn(true);
-                //TODO: Tal - decision maker should remember that user activated the bluetooth and 
-                //not shut it down next time the manager wakes up
+                //if radio mode changed to discoverable then learn - "user uses his bluetooth"
+                if (m_bluetoothAdapter.RadioMode == RadioMode.Discoverable)
+                {
+                    m_learner.Learn(true);
+                    //don't touch bluetooth for next Constant minutes
+                    m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
+                }
+                else //radio mode is either off or connectable. learn - "user doesn't uses his bluetooth"
+                {
+                    m_learner.Learn(false);
+                    //don't touch bluetooth for next Constant minutes
+                    m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
+                    
+                }
             }
-            else //radio mode is either off or connectable. learn - "user doesn't uses his bluetooth"
-            {
-                m_learner.Learn(false);
-                //TODO: Tal - decision maker should remember that user de-activated the bluetooth and 
-                //not turn it on next time the manager wakes up
-            }
+            
         }
 
 //        //returns true if in the current time is in the rules scope and therefore the bluetooth
@@ -99,7 +164,7 @@ namespace PowerAwareBluetooth.Controller.AI
         public int CalculateCurrentWaitTime()
         {
             // TODO: TAL implement me
-            return 1000;
+            return m_waitTimeBetweenSamples;
         }
 
         /// <summary>
