@@ -111,6 +111,10 @@ namespace PowerAwareBluetooth.Controller.AI
             SLICES_FOR_MINIMUM_ON_INTERVAL = DEFAULT_MINIMUM_ON_INTERVAL / (TIME_SLICE_LENGTH * 2);
 
             m_timeLine = new StateMachine[TOTAL_TIME_SLICES_NUM];
+            for (int i = 0; i < TOTAL_TIME_SLICES_NUM; i++)
+            {
+                m_timeLine[i] = new StateMachine();
+            }
             
 
         }
