@@ -3,7 +3,7 @@ using InTheHand.Net.Sockets;
 using InTheHand.Net.Bluetooth;
 using Microsoft.WindowsMobile.Status;
 using Microsoft.Win32;
-
+//TODO: see if this can be implemented with adam link without InTheHand.net
 namespace PowerAwareBluetooth.Model
 {
     /// <summary>

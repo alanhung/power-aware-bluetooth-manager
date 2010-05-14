@@ -45,7 +45,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Clarius.UI.OrientationAware" />
     <Reference Include="CompactFormatter, Version=1.0.0.27374, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>external\CompactFormatter.dll</HintPath>
