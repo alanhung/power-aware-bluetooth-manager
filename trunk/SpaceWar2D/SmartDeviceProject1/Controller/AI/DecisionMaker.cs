@@ -163,9 +163,9 @@ namespace PowerAwareBluetooth.Controller.AI
         /// <returns>the number of milliseconds to sleep</returns>
         public int CalculateCurrentWaitTime()
         {
-            // TODO: TAL implement me
-            return 1000;
-            //return m_waitTimeBetweenSamples;
+            // TODO: TAL support different time sampling
+            //return 1000;
+            return m_waitTimeBetweenSamples;
         }
 
         /// <summary>
