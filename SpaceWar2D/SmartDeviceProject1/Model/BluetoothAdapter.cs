@@ -60,6 +60,8 @@ namespace PowerAwareBluetooth.Model
         /// <returns>true if other bluetooth devices are in range</returns>
         public bool SampleForOtherBluetooth()
         {
+            // TODO: remove this - debug because no bluetooth available
+            return false;
             //remember bluetooth last mode of operation
             RadioMode last_mode = m_radio.Mode;
             
