@@ -9,6 +9,8 @@ Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "SpaceWar", "SpaceWar\SpaceW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerAwareBluetooth", "SmartDeviceProject1\PowerAwareBluetooth.csproj", "{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerAwareBluetooth_UI", "PowerAwareBluetooth_UI\PowerAwareBluetooth_UI.csproj", "{1E19F66A-E703-48DB-8173-99F869C047FC}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -37,6 +39,12 @@ Global
 		{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1E19F66A-E703-48DB-8173-99F869C047FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E19F66A-E703-48DB-8173-99F869C047FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E19F66A-E703-48DB-8173-99F869C047FC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1E19F66A-E703-48DB-8173-99F869C047FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E19F66A-E703-48DB-8173-99F869C047FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E19F66A-E703-48DB-8173-99F869C047FC}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
