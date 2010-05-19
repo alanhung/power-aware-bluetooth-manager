@@ -5,7 +5,7 @@ using CompactFormatter;
 
 namespace PowerAwareBluetooth.Controller.IO
 {
-    // TODO: adam - lock the file before interacting with it
+    // TODO: adam - lock the file before interacting with it - DO WE HAVE TO ?
     /// <summary>
     /// handles the saving and loading of the saved data
     /// </summary>

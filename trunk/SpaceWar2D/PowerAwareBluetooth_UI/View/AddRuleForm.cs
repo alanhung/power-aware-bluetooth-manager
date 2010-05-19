@@ -11,7 +11,7 @@ namespace PowerAwareBluetooth_UI.View
         private bool[] m_WaitingTimePickerValueChange = {false, false};
         private bool[] m_SelectedDayBoolArray;
         private RuleList m_RuleList;
-
+        private int? m_RuleIndex;
         public AddRuleForm()
         {
             InitializeComponent();
@@ -26,8 +26,9 @@ namespace PowerAwareBluetooth_UI.View
                                          };
         }
 
-        public AddRuleForm(Rule ruleToEdit): this()
+        public AddRuleForm(Rule ruleToEdit, int ruleIndex): this()
         {
+            m_RuleIndex = ruleIndex;
             m_NameComboBox.Text = ruleToEdit.Name;
             m_DaysComboBox.SelectedItem = ruleToEdit.ActiveWeekDays.SelectedDaysEnum;
             m_SelectedDayBoolArray = ruleToEdit.ActiveWeekDays.SelectedDaysArray;
@@ -60,6 +61,18 @@ namespace PowerAwareBluetooth_UI.View
             set
             {
                 m_RuleList = value;
+                if (!m_RuleIndex.HasValue) // the dialog will be opened in a new-rule mode
+                {
+                    const string baseName = "My Rule";
+                    string newRuleName = baseName;
+                    int i = 1;
+                    while(value.ContainsByName(newRuleName))
+                    {
+                        newRuleName = baseName + " " + i;
+                        ++i;
+                    }
+                    m_NameComboBox.Text = newRuleName;
+                }
             }
         }
 
@@ -211,15 +224,22 @@ namespace PowerAwareBluetooth_UI.View
             #endregion
 
             #region /// Verifies that the rule does not collide with another rule ///
-
-            Rule tmpRule = CreateRuleFromUI();
-            Rule collidingRule = RulesList.GetCollidingRule(tmpRule);
-            if (collidingRule != null)
+            if (errorNumber == 0)
             {
-                string message = String.Format("The new rule collides with another rule ({0})", collidingRule.Name);
-                errorString.AppendLine(GetErrorString(++errorNumber, message));
+                // creates a temporary rule that is used for collision test
+                Rule tmpRule = CreateRuleFromUI();
+
+                // searches for a colliding rule
+                Rule collidingRule = RulesList.GetCollidingRule(tmpRule, m_RuleIndex);
+
+                // if collidingRule is null then the new rule is not colliding with any rule
+                if (collidingRule != null)
+                {
+                    string message = String.Format("The new rule collides with another rule ({0})", collidingRule.Name);
+                    errorString.AppendLine(GetErrorString(++errorNumber, message));
+                }
             }
-            
+
             #endregion
 
             #region /// Shows the errors or returns ///

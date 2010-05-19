@@ -54,11 +54,22 @@ namespace PowerAwareBluetooth.Model
             return matchingRule;
         }
 
-        public Rule GetCollidingRule(Rule ruleToTest)
+        /// <summary>
+        /// searches for a rule that collides with the given rule
+        /// </summary>
+        /// <param name="ruleToTest">the rule that a colliding rule will collide with</param>
+        /// <param name="indexToSkip">an index to skip when iterating the rules list, this parameter can be null</param>
+        /// <returns>a rule that collides with the given rule if one exists, null otherwise</returns>
+        public Rule GetCollidingRule(Rule ruleToTest, int? indexToSkip)
         {
             Rule collidingRule = null;
-            foreach (Rule rule in this)
+            for (int i = 0; i < this.Count; ++i)
             {
+                if (indexToSkip.HasValue && indexToSkip.Value == i)
+                {
+                    continue;
+                }
+                Rule rule = this[i];
                 if (rule.IsCollidesWith(ruleToTest))
                 {
                     collidingRule = rule;
@@ -66,6 +77,23 @@ namespace PowerAwareBluetooth.Model
                 }
             }
             return collidingRule;
+        }
+
+        /// <summary>
+        /// tests if a rule exists with a given name.
+        /// </summary>
+        /// <param name="ruleName">the name to test</param>
+        /// <returns>true if such rule exists, false otherwise</returns>
+        public bool ContainsByName(string ruleName)
+        {
+            foreach (Rule rule in this)
+            {
+                if (rule.Name.Equals(ruleName))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -44,13 +44,6 @@ namespace PowerAwareBluetooth.View
             {
                 AsyncBindingList<Rule> dataSource = m_RulesListGrid.DataSource as AsyncBindingList<Rule>;
                 return dataSource;
-//                if (dataSource != null)
-//                {
-//                    RuleList ruleList = new RuleList();
-//                    ruleList.AddRange(dataSource);
-//                    return ruleList;
-//                }
-//                return null;
             }
         
             set
@@ -60,24 +53,12 @@ namespace PowerAwareBluetooth.View
                 {
                     m_RulesListGrid.Select(0);
                 }
-//                if (value != null)
-//                {
-//                    AsyncBindingList<Rule> dataSource = value.ToAsyncBindingList();
-//                    dataSource.ParentControl = this;
-//                    m_RulesListGrid.DataSource = dataSource;
-//                    if (dataSource.Count > 0)
-//                    {
-//                        m_RulesListGrid.Select(0);
-//                    }
-//                }
-//                else
-//                {
-//                    m_RulesListGrid.DataSource = null;
-//                }
             }
         }
 
-
+        /// <summary>
+        /// initializes the grid-view with the enabled column
+        /// </summary>
         private void InitializeColumns()
         {
             // add the icon column
@@ -142,7 +123,7 @@ namespace PowerAwareBluetooth.View
             if (selectedRow >= 0 && selectedRow < BindedRuleList.Count)
             {
                 Rule selectedRule = BindedRuleList[selectedRow];
-                AddRuleForm addRuleForm = new AddRuleForm(selectedRule);
+                AddRuleForm addRuleForm = new AddRuleForm(selectedRule, selectedRow);
                 addRuleForm.RulesList = BindedRuleListAsRuleList();
                 if (addRuleForm.ShowDialog() == DialogResult.OK)
                 {

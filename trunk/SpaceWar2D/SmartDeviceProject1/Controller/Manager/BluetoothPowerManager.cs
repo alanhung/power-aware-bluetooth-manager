@@ -140,7 +140,6 @@ namespace PowerAwareBluetooth.Controller.Manager
                 {
                     lock(this)
                     {
-                        // TODO: add compare
                         m_RuleList = newRuleList;
                         m_NeedUpdateDecisionMakerRuleList = true;
                     }

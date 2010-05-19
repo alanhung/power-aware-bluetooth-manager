@@ -18,7 +18,7 @@ namespace PowerAwareBluetooth.Model
         /// </summary>
         public bool BatteryLow
         {
-            //TODO: ADAM : check this logic - should this be && or || ?
+            //TODO: ADAM : PHONE DEPENDENT check this logic - should this be && or || ?
             get
             {
                 return
