@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using PowerAwareBluetooth.Settings;
 
-namespace PowerAwareBluetooth.View
+namespace PowerAwareBluetooth_UI.View
 {
     public partial class CustomDaysForm : Form
     {
@@ -40,14 +40,14 @@ namespace PowerAwareBluetooth.View
             }
             set
             {
-               if (value != null)
-               {
-                   for (int i = 0; i < Constants.DAYS_IN_WEEK; ++i)
-                   {
-                       m_Days[i].Checked = value[i];
-                   }
-               }
-               m_SelectedDays = value;
+                if (value != null)
+                {
+                    for (int i = 0; i < Constants.DAYS_IN_WEEK; ++i)
+                    {
+                        m_Days[i].Checked = value[i];
+                    }
+                }
+                m_SelectedDays = value;
             }
         }
 

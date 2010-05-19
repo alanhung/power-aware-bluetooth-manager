@@ -3,7 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using PowerAwareBluetooth.Model;
 
-namespace PowerAwareBluetooth.View
+namespace PowerAwareBluetooth_UI.View
 {
     public partial class AddRuleForm : Form
     {
@@ -35,10 +35,10 @@ namespace PowerAwareBluetooth.View
                                                        ruleToEdit.TimeInterval.StartMinutes, 0);
 
             m_EndRuleTimePicker.Value = new DateTime(2015, 1, 1, ruleToEdit.TimeInterval.EndHour,
-                                           ruleToEdit.TimeInterval.EndMinutes, 0);
+                                                     ruleToEdit.TimeInterval.EndMinutes, 0);
             m_RadioButtonTurnOn.Checked = ruleToEdit.RuleAction == RuleActionEnum.TurnOn;
             m_ActiveCheckBox.Checked = ruleToEdit.Enabled;
-       }
+        }
 
         internal Rule RuleObject
         {
@@ -106,7 +106,7 @@ namespace PowerAwareBluetooth.View
                     return new WeekDays(m_SelectedDayBoolArray);
                 }
                 return new WeekDays(selectedDaysEnum);
-             }
+            }
             else
             {
                 return null;
@@ -280,7 +280,7 @@ namespace PowerAwareBluetooth.View
                 newMinute = newEnteredValue;
             }
             return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day,
-                dateTime.Hour, newMinute, dateTime.Second);
+                                dateTime.Hour, newMinute, dateTime.Second);
         }
 
         private void selectDaysButton_Click(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using PowerAwareBluetooth.View;
+using PowerAwareBluetooth_UI.View;
 
 namespace PowerAwareBluetooth_UI
 {

@@ -127,8 +127,8 @@
   <data name="addNewRuleButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCgAA
-        CwoBv0NmUwAAFm9JREFUaEOtWnl8VfWV/97fvffdtydkIQlJCInZE7LvmywCUmVJDKAIVpaAQJIXIGAt
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCQAA
+        CwkBEvpHPgAAFm9JREFUaEOtWnl8VfWV/97fvffdtydkIQlJCInZE7LvmywCUmVJDKAIVpaAQJIXIGAt
         49ja2k2UVha1FqW4W6zKEhIgLEJwQ6TuKCEJIHZmSmc+0z/az4zTzPfcvIfREeof8/gc3n3v3Xt+53u2
         3znnFx3f/NKCX8u7HiTFSwOY5UDtF3rU3y65fR5Yf/0rnIOD4PdCWSaQSarWfZ4zo4AvUv7n70j06PAl
         O13/fckcCYT9xRGhwSpPUk7tz1HWfyDSVCreGjXqT2ZGDsyL15LPR9Dwd3A9vg+RvELXoc9XEP2rNwoT
@@ -233,8 +233,8 @@
   <data name="removeRuleButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCgAA
-        CwoBv0NmUwAADuBJREFUaEO9WmlUVdcV1q7YdK2uJn/SxCTOIGKjMggOgCjiLIMyKw9EBI2aNLFpaxqN
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCQAA
+        CwkBEvpHPgAADuBJREFUaEO9WmlUVdcV1q7YdK2uJn/SxCTOIGKjMggOgCjiLIMyKw9EBI2aNLFpaxqN
         qTGJrrRJY5OuphoVNUYTB7RORFCMOOCsbRyB9x48BTUxqYqiDG/3+865Fx7IpEnLWt9699177t7ft8/e
         +5x7H23b/Ah/ItIOZrq2EfFUn23adAMeB35umC/H5402bdtaMcaGzwttqqttbdu1q/oR3D+cCampeVSc
         Th9gHpALEVbgOnALuANUAHcN8Pg2cAO4hvEFQDYwB3a8pbr60Ydj8RB3gcAjcDwa2IjjUqAcqARqAGct
@@ -306,8 +306,8 @@
   <data name="editRuleButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALDgAA
-        Cw4BQL7hQQAAEgNJREFUaEPFmndUVOcWxQdRE18SFQu9CEq6saICA9gb9uiLsWCNDWPsHVuMLSb2blRE
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALDQAA
+        Cw0B7QfALAAAEgNJREFUaEPFmndUVOcWxQdRE18SFQu9CEq6saICA9gb9uiLsWCNDWPsHVuMLSb2blRE
         RZQmvQgoKoo9UdQoFmxgVzQxUZP99vnuzDAYksVb74/HWttbZ/zt853zlXvHQqfTgdL+yr6p07l66nRu
         ep2uWk2dzsLCdOn/ugMi3r+s0105qNNdPazTvfqtGI4YgK6SPXTt50DXewt0fYI1cd+i1xaU6R38F1ny
         epG2cn8rygaEoMLwcPxrRIRBkdxG4i2jArn/mt7msUjO/yvQ+Dluh0fgjSFhKDtgB3R9t5p4FKOwaoFX

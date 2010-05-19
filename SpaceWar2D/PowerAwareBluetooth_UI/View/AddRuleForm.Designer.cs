@@ -1,4 +1,4 @@
-﻿namespace PowerAwareBluetooth.View
+﻿namespace PowerAwareBluetooth_UI.View
 {
     partial class AddRuleForm
     {

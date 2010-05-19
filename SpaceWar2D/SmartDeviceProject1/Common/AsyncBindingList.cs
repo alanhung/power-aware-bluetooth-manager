@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 namespace PowerAwareBluetooth.Common
 {
+    [Serializable]
     /// <summary>
     /// a binding list that synchronizes the changes to its internal objects
     /// so that change will be made only on the thread that is the owner of the
@@ -12,6 +13,7 @@ namespace PowerAwareBluetooth.Common
     /// <typeparam name="T"></typeparam>
     public class AsyncBindingList<T> : BindingList<T>
     {
+        [NonSerialized]
         private Control m_ParentControl;
         delegate void ListChangedDelegate(ListChangedEventArgs e);
 

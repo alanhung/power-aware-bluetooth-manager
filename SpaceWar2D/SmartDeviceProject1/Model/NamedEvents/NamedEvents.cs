@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace PowerAwareBluetooth.Model.NamedEvents
 {
+    /// <summary>
+    /// exposes the Named-Events capability of Windows Mobile
+    /// </summary>
     internal class NamedEvents
     {
+        #region /// DLL Imports ///
+
         [DllImport("coredll.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Auto)]
         public static extern IntPtr CreateEvent(
             IntPtr lpEventAttributes,
@@ -29,24 +31,41 @@ namespace PowerAwareBluetooth.Model.NamedEvents
         [DllImport("coredll.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EventModify(IntPtr hEvent, [In, MarshalAs(UnmanagedType.U4)] int dEvent);
+
+        #endregion
+
+        #region /// Events-Flags Modifiers ///
+
         public enum EventFlags
         {
             PULSE = 1,
             RESET = 2,
             SET = 3
         }
+
         private static bool EventModify(IntPtr hEvent, EventFlags flags)
         {
             return EventModify(hEvent, (int)flags);
         }
 
+        #endregion
+
+        #region /// Constants ///
+
         const int STANDARD_RIGHTS_REQUIRED = 0x000F0000;
         const int SYNCHRONIZE = 0x00100000;
         const int EVENT_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x3); 
+        const int INFINITE = -1;
 
-        public const int INFINITE = -1;
+        #endregion
 
-        public IntPtr m_Handle;
+        #region /// Private Members //
+
+        private  IntPtr m_Handle;
+
+        #endregion
+
+        #region /// Public API ///
 
         public bool IsOpened
         {
@@ -84,6 +103,7 @@ namespace PowerAwareBluetooth.Model.NamedEvents
             EventModify(m_Handle, EventFlags.PULSE);
         }
 
+        #endregion
 
     }
 }

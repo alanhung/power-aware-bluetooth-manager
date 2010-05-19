@@ -11,11 +11,20 @@ namespace PowerAwareBluetooth.Controller.IO
     /// </summary>
     public static class IOManager
     {
-        internal const string DATA_FILE = @"Storage Card\BlueToothManager\Data.bin";
+        private const string DATA_FILE = @"Storage Card\BlueToothManager\UserDefinedRules.bin";
 
         public static void Save(object dataToSave)
         {
-            SerializeObject(DATA_FILE, dataToSave);
+            try
+            {
+                SerializeObject(DATA_FILE, dataToSave);
+            }
+            catch (Exception e)
+            {
+                int x;
+                x = 10;
+            }
+
         }
 
         /// <summary>
@@ -32,8 +41,8 @@ namespace PowerAwareBluetooth.Controller.IO
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.StackTrace);
-                MessageBox.Show(e.StackTrace);
+//                Console.WriteLine(e.StackTrace);
+//                MessageBox.Show(e.StackTrace);
                 return null;
             }
         }
