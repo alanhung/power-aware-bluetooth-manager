@@ -48,6 +48,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ItemGroup>
     <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -63,4 +67,79 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Compile Include="Common\DataGridIconColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddRuleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AddRuleForm.Designer.cs">
+      <DependentUpon>AddRuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomDaysForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CustomDaysForm.Designer.cs">
+      <DependentUpon>CustomDaysForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserRulesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UserRulesForm.Designer.cs">
+      <DependentUpon>UserRulesForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\AddRuleForm.resx">
+      <DependentUpon>AddRuleForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CustomDaysForm.resx">
+      <DependentUpon>CustomDaysForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UserRulesForm.resx">
+      <DependentUpon>UserRulesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartDeviceProject1\PowerAwareBluetooth.csproj">
+      <Project>{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}</Project>
+      <Name>PowerAwareBluetooth</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\success.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\remove.png" />
+  </ItemGroup>
 </Project>

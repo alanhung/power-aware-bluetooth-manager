@@ -10,7 +10,7 @@ namespace PowerAwareBluetooth.Controller.AI
 {
     internal class DecisionMaker
     {
-        #region Members
+        #region /// Members ///
 
         private Learner m_learner;
         private BluetoothAdapter m_bluetoothAdapter;
@@ -21,17 +21,27 @@ namespace PowerAwareBluetooth.Controller.AI
         private DateTime m_waitAfterUserControl = DateTime.MinValue;
         private int m_waitTimeBetweenSamples = BluetoothAdapterConstants.Learning.DEFAULT_WAITING_TIME_BETWEEN_SAMPLES;
 
-        #endregion Members
+        #endregion
 
         public DecisionMaker(BluetoothAdapter bluetoothAdapter, RuleList ruleList)
         {
             m_learner = new Learner();
             m_bluetoothAdapter = bluetoothAdapter;
-            m_rules = ruleList;
+            RulesList = ruleList;
 
             //register to events 
             m_bluetoothAdapter.BluetoothRadioModeChanged += HandleBluetoothRadioModeChanged;
             //TODO: TAL register to cell phone events
+        }
+
+        // TODO: tal + adam: verify with Tal that we can update this property async as much as we like
+        /// <summary>
+        /// gets or sets the user-defined rule list
+        /// </summary>
+        public RuleList RulesList
+        {
+            get { return m_rules; }
+            set { m_rules = value; }
         }
 
         /// <summary>
@@ -50,7 +60,7 @@ namespace PowerAwareBluetooth.Controller.AI
             else
             {
                 //check if user defined rule for the current time
-                Rule rule = m_rules.GetRule(DateTime.Now);
+                Rule rule = RulesList.GetRule(DateTime.Now);
 
                 if (rule != null)
                 {
@@ -110,6 +120,8 @@ namespace PowerAwareBluetooth.Controller.AI
                 m_enableLearning = value;
             }
         }
+
+
 
         /// <summary>
         /// called when the radio mode was changed

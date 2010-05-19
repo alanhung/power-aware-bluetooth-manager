@@ -12,6 +12,7 @@ namespace PowerAwareBluetooth.Model
         Custom
     }
 
+    [Serializable]
     public class WeekDays
     {
         private static readonly bool[] Everyday_Arr = { true, true, true, true, true, true, true };
@@ -66,6 +67,11 @@ namespace PowerAwareBluetooth.Model
                 }
             }
             return SelectedDays.Custom;
+        }
+
+        public WeekDays()
+        {
+            
         }
 
         public WeekDays(bool[] selectedDays)

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{718F1DFE-6184-41C3-B943-7F31BCA4E7F7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -45,10 +45,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CompactFormatter, Version=1.0.0.27374, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>external\CompactFormatter.dll</HintPath>
-    </Reference>
     <Reference Include="InTheHand.Net.Personal, Version=2.3.0.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.WindowsMobile.Status, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
@@ -57,6 +53,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
@@ -76,12 +74,19 @@
     <Compile Include="Model\BluetoothAdapter.cs" />
     <Compile Include="Model\BluetoothAdapterConstants.cs" />
     <Compile Include="Model\BTSafeNativeMethods.cs" />
+    <Compile Include="Model\NamedEvents\NamedEvents.cs" />
+    <Compile Include="Model\NamedPipes\Server.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Process\ProcessAPI.cs" />
+    <Compile Include="Model\Process\PROCESSENTRY32 .cs" />
     <Compile Include="Model\Rule.cs" />
     <Compile Include="Model\RuleActionEnum.cs" />
     <Compile Include="Model\RuleList.cs" />
     <Compile Include="Model\TimeInterval.cs" />
     <Compile Include="Model\TimeLine.cs" />
     <Compile Include="Model\WeekDays.cs" />
+    <Compile Include="Model\WinMessageAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -143,6 +148,16 @@
     <Content Include="external\C4F.DevKit.Bluetooth.ServiceAndDeviceDiscovery.dll" />
     <Content Include="external\CompactFormatter.dll" />
     <Content Include="external\InTheHand.Net.Personal.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CompactFramework\CompactFormatterPlus\CompactFormatterPlus.csproj">
+      <Project>{D334E206-753A-40B6-B31A-6401B5554D6F}</Project>
+      <Name>CompactFormatterPlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CompactFramework\ISerial\ISerial.csproj">
+      <Project>{C94C0271-B1DD-4764-868F-90F298E05924}</Project>
+      <Name>ISerial</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

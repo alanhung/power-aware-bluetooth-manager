@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Windows.Forms;
 using PowerAwareBluetooth.Common;
-using PowerAwareBluetooth.View;
 
 namespace PowerAwareBluetooth.Model
 {
+    [Serializable]
     /// <summary>
     /// a list of user-defined rules. rules can be entered using the window form
     /// <see cref="AddRuleForm"/>.
     /// </summary>
-    class RuleList : AsyncBindingList<Rule>
+    public class RuleList : AsyncBindingList<Rule>
     {
         /// <summary>
         /// tests if a rule exists for the specified time

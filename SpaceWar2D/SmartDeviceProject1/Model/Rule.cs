@@ -4,6 +4,7 @@ using PowerAwareBluetooth.Settings;
 namespace PowerAwareBluetooth.Model
 {
     // TODO: adam - add rules collision
+    [Serializable]
     public class Rule
     {
         /// <summary>
@@ -31,6 +32,11 @@ namespace PowerAwareBluetooth.Model
         /// indicates if the rule is active
         /// </summary>
         private bool m_Enabled;
+        
+        public Rule()
+        {
+            
+        }
 
         public Rule(
             string name,
