@@ -3,7 +3,7 @@ using PowerAwareBluetooth.Settings;
 
 namespace PowerAwareBluetooth.Model
 {
-    // TODO: adam - add rules collision
+    // TODO: adam: DONE - add rules collision
     [Serializable]
     public class Rule
     {

@@ -63,6 +63,22 @@ namespace PowerAwareBluetooth.Model
             set { m_EndHour = value; }
         }
 
+        public int StartNumber
+        {
+            get
+            {
+                return m_StartHour*24 + m_StartMinutes;
+            }
+        }
+
+        public int EndNumber
+        {
+            get
+            {
+                return m_EndHour*24 + m_EndMinutes;
+            }
+        }
+
         public static bool IsStartBeforeEnd(int startHour, int startMinutes, int endHour, int endMinutes)
         {
             return (startHour > endHour ||
@@ -100,10 +116,31 @@ namespace PowerAwareBluetooth.Model
             return result;
         }
 
+        /// <summary>
+        /// tests if the given interval overlaps with this interval
+        /// </summary>
+        /// <param name="otherTimeInterval">an interval to test</param>
+        /// <returns>true if this and the given interval overlap, false otherwise</returns>
         public bool IsOverlap(TimeInterval otherTimeInterval)
         {
-            // use contain
-            return false;
+            bool res =
+                (IsBetween(StartNumber, EndNumber, otherTimeInterval.StartNumber)) ||
+                 (IsBetween(StartNumber, EndNumber, otherTimeInterval.EndNumber)) ||
+                 (IsBetween(otherTimeInterval.StartNumber, otherTimeInterval.EndNumber, StartNumber)) ||
+                  (IsBetween(otherTimeInterval.StartNumber, otherTimeInterval.EndNumber, EndNumber));
+            return res;
+        }
+
+        /// <summary>
+        /// tests if a number is between max and min
+        /// </summary>
+        /// <param name="min">a min value</param>
+        /// <param name="max">a max value</param>
+        /// <param name="what">a number that could be between min and max</param>
+        /// <returns>true if what is in [min, max], false otherwise</returns>
+        private bool IsBetween(int min, int max, int what)
+        {
+            return (min <= what && what <= max);
         }
     }
 }
