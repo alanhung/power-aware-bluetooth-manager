@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using PipeServer;
 using PowerAwareBluetooth.Controller.Manager;
+using PowerAwareBluetooth.Model;
+using PowerAwareBluetooth.Model.NamedEvents;
 using PowerAwareBluetooth.View;
 
 namespace PowerAwareBluetooth
@@ -19,6 +22,8 @@ namespace PowerAwareBluetooth
         static void Main()
         {
             BluetoothPowerManager bluetoothPowerManager = new BluetoothPowerManager();
+//            Controller.IO.IOManager.Save(bluetoothPowerManager.RulesList);
+//            RuleList ruleList = Controller.IO.IOManager.Load() as RuleList;
             bluetoothPowerManager.Start();
         }
     }

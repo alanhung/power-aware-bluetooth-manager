@@ -2,6 +2,7 @@
 
 namespace PowerAwareBluetooth.Model
 {
+    [Serializable]
     public class TimeInterval
     {
         public const int MIN_HOUR = 0;
@@ -15,6 +16,11 @@ namespace PowerAwareBluetooth.Model
         private int m_StartMinutes;
         private int m_EndHour;
         private int m_EndMinutes;
+
+        public TimeInterval()
+        {
+            
+        }
 
         public TimeInterval(int startHour, int startMinutes, int endHour, int endMinutes)
         {

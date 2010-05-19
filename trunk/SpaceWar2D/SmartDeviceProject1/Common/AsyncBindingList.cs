@@ -10,7 +10,7 @@ namespace PowerAwareBluetooth.Common
     /// invoke member.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class AsyncBindingList<T> : BindingList<T>
+    public class AsyncBindingList<T> : BindingList<T>
     {
         private Control m_ParentControl;
         delegate void ListChangedDelegate(ListChangedEventArgs e);
