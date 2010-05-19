@@ -96,7 +96,7 @@
             // dataGridTableStyle1
             // 
             this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn1);
-            this.dataGridTableStyle1.MappingName = "RuleList";
+            this.dataGridTableStyle1.MappingName = "AsyncBindingList`1";
             // 
             // dataGridTextBoxColumn1
             // 

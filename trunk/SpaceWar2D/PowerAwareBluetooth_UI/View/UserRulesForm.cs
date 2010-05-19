@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using PowerAwareBluetooth.Common;
 using PowerAwareBluetooth.Model;
 using PowerAwareBluetooth_UI.Common;
+using PowerAwareBluetooth_UI.View;
 
 namespace PowerAwareBluetooth.View
 {
@@ -28,27 +30,50 @@ namespace PowerAwareBluetooth.View
             {
                 ruleList = new RuleList();
             }
-            BindedRuleList = ruleList;
+            AsyncBindingList<Rule> bindableRuleList = ruleList.ToAsyncBindingList();
+            bindableRuleList.ParentControl = this;
+            BindedRuleList = bindableRuleList;
         }
 
         /// <summary>
         /// gets or sets the list that is bounded to the grid-view
         /// </summary>
-        internal RuleList BindedRuleList
+        internal AsyncBindingList<Rule> BindedRuleList
         {
             get
             {
-                return m_RulesListGrid.DataSource as RuleList;
+                AsyncBindingList<Rule> dataSource = m_RulesListGrid.DataSource as AsyncBindingList<Rule>;
+                return dataSource;
+//                if (dataSource != null)
+//                {
+//                    RuleList ruleList = new RuleList();
+//                    ruleList.AddRange(dataSource);
+//                    return ruleList;
+//                }
+//                return null;
             }
         
             set
             {
-                value.ParentControl = this;
                 m_RulesListGrid.DataSource = value;
                 if (value.Count > 0)
                 {
                     m_RulesListGrid.Select(0);
                 }
+//                if (value != null)
+//                {
+//                    AsyncBindingList<Rule> dataSource = value.ToAsyncBindingList();
+//                    dataSource.ParentControl = this;
+//                    m_RulesListGrid.DataSource = dataSource;
+//                    if (dataSource.Count > 0)
+//                    {
+//                        m_RulesListGrid.Select(0);
+//                    }
+//                }
+//                else
+//                {
+//                    m_RulesListGrid.DataSource = null;
+//                }
             }
         }
 
@@ -56,8 +81,7 @@ namespace PowerAwareBluetooth.View
         private void InitializeColumns()
         {
             // add the icon column
-
-            DataGridTableStyle dataGridTableStyle = m_RulesListGrid.TableStyles["RuleList"];
+            DataGridTableStyle dataGridTableStyle = m_RulesListGrid.TableStyles[0];
 
             DataGridIconColumn dataGridIconColumn = new DataGridIconColumn();
             dataGridIconColumn.Center = true;
@@ -72,8 +96,8 @@ namespace PowerAwareBluetooth.View
             const int gap = 5;
             const int enabledColumnWidth = 70;
             int nameColumnWidth = totalWidth - enabledColumnWidth - gap;
-            m_RulesListGrid.TableStyles["RuleList"].GridColumnStyles["Enabled"].Width = enabledColumnWidth;
-            m_RulesListGrid.TableStyles["RuleList"].GridColumnStyles["Name"].Width = nameColumnWidth;
+            m_RulesListGrid.TableStyles[0].GridColumnStyles["Enabled"].Width = enabledColumnWidth;
+            m_RulesListGrid.TableStyles[0].GridColumnStyles["Name"].Width = nameColumnWidth;
         }
 
         private void removeRuleButton_Click(object sender, System.EventArgs e)
@@ -94,10 +118,18 @@ namespace PowerAwareBluetooth.View
                  
         }
 
+        private RuleList BindedRuleListAsRuleList()
+        {
+            RuleList ruleList = new RuleList();
+            ruleList.AddRange(BindedRuleList);
+            return ruleList;
+        }
+
         private void addNewRuleButton_Click(object sender, System.EventArgs e)
         {
             AddRuleForm addRuleForm = new AddRuleForm();
-            addRuleForm.RulesList = BindedRuleList;
+            addRuleForm.RulesList = BindedRuleListAsRuleList();
+                //BindedRuleList;
             if (addRuleForm.ShowDialog() == DialogResult.OK)
             {
                 BindedRuleList.Add(addRuleForm.RuleObject);
@@ -111,7 +143,7 @@ namespace PowerAwareBluetooth.View
             {
                 Rule selectedRule = BindedRuleList[selectedRow];
                 AddRuleForm addRuleForm = new AddRuleForm(selectedRule);
-                addRuleForm.RulesList = BindedRuleList;
+                addRuleForm.RulesList = BindedRuleListAsRuleList();
                 if (addRuleForm.ShowDialog() == DialogResult.OK)
                 {
                     BindedRuleList[selectedRow] = addRuleForm.RuleObject;
@@ -140,7 +172,7 @@ namespace PowerAwareBluetooth.View
         /// </summary>
         private void NotifyBluetoothProcess()
         {
-            WinMessageAdapter.NotifyListChanged(BindedRuleList);
+            WinMessageAdapter.NotifyListChanged();
         }
 
         /// <summary>
@@ -148,7 +180,7 @@ namespace PowerAwareBluetooth.View
         /// </summary>
         private void SaveListToFile()
         {
-            RuleList list = BindedRuleList;
+            RuleList list = BindedRuleListAsRuleList();
             if (list != null)
             {
                 Controller.IO.IOManager.Save(list);

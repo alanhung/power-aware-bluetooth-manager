@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using PowerAwareBluetooth.Controller.Manager;
+using PowerAwareBluetooth.View;
 
-namespace PowerAwareBluetooth.View
+namespace PowerAwareBluetooth_UI.View
 {
     public partial class MainForm : Form
     {

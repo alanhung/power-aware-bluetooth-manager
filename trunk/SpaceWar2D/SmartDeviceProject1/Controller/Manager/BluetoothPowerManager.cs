@@ -33,18 +33,18 @@ namespace PowerAwareBluetooth.Controller.Manager
             m_DecisionMaker = new DecisionMaker(m_BluetoothAdapter, m_RuleList);
             InitWaitMessageThread();
 
-            TimeInterval timeInterval1 = new TimeInterval(12, 0, 14, 0);
-            Rule fakeRule1 = new Rule(
-                "adam rule",
-                timeInterval1,
-                RuleActionEnum.TurnOn,
-                new WeekDays(SelectedDays.Everyday), true);
-            TimeInterval timeInterval2 = new TimeInterval(13, 10, 14, 20);
-            Rule fakeRule2 = new Rule(
-                "tal rule", timeInterval2, RuleActionEnum.TurnOn,
-                new WeekDays(SelectedDays.Weekend), false);
-            m_RuleList.Add(fakeRule1);
-            m_RuleList.Add(fakeRule2);
+//            TimeInterval timeInterval1 = new TimeInterval(12, 0, 14, 0);
+//            Rule fakeRule1 = new Rule(
+//                "adam rule",
+//                timeInterval1,
+//                RuleActionEnum.TurnOn,
+//                new WeekDays(SelectedDays.Everyday), true);
+//            TimeInterval timeInterval2 = new TimeInterval(13, 10, 14, 20);
+//            Rule fakeRule2 = new Rule(
+//                "tal rule", timeInterval2, RuleActionEnum.TurnOn,
+//                new WeekDays(SelectedDays.Weekend), false);
+//            m_RuleList.Add(fakeRule1);
+//            m_RuleList.Add(fakeRule2);
             RadioMode res = m_DecisionMaker.RadioModeDecided();
             
         }
@@ -136,7 +136,6 @@ namespace PowerAwareBluetooth.Controller.Manager
                 WinMessageAdapter.WaitForMessage();
 
                 RuleList newRuleList = IO.IOManager.Load() as RuleList;
-                    //WinMessageAdapter.GetListFromQueue();
                 if (newRuleList != null)
                 {
                     lock(this)
