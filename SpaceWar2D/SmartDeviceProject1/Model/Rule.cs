@@ -113,6 +113,11 @@ namespace PowerAwareBluetooth.Model
             return result;
         }
 
+        /// <summary>
+        /// tests if the current rule collides with the given rule
+        /// </summary>
+        /// <param name="ruleToTest">a rule to test</param>
+        /// <returns></returns>
         public bool IsCollidesWith(Rule ruleToTest)
         {
             for (int i = 0; i < Constants.DAYS_IN_WEEK; ++i)
