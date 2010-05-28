@@ -107,7 +107,6 @@
   <ItemGroup>
     <Content Include="external\C4F.DevKit.Bluetooth.ServiceAndDeviceDiscovery.dll" />
     <Content Include="external\CompactFormatter.dll" />
-    <Content Include="external\InTheHand.Net.Personal.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CompactFramework\CompactFormatterPlus\CompactFormatterPlus.csproj">

@@ -155,7 +155,7 @@ namespace PowerAwareBluetooth.Model
             //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
 
             //TODO: see that this is correct 
-            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10, true, false, false);
+            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10, true, false, false, true);
 
             return (btInfo.Length > 0);
 
