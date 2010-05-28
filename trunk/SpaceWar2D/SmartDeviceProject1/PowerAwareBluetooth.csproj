@@ -49,6 +49,10 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="InTheHand.Net.Personal, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>external\InTheHand.Net.Personal.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.WindowsMobile.Status, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="mscorlib" />
@@ -107,6 +111,7 @@
   <ItemGroup>
     <Content Include="external\C4F.DevKit.Bluetooth.ServiceAndDeviceDiscovery.dll" />
     <Content Include="external\CompactFormatter.dll" />
+    <Content Include="external\InTheHand.Net.Personal.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CompactFramework\CompactFormatterPlus\CompactFormatterPlus.csproj">
