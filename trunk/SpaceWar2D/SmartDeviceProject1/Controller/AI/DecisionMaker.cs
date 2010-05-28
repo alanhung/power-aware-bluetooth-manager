@@ -30,7 +30,8 @@ namespace PowerAwareBluetooth.Controller.AI
             RulesList = ruleList;
 
             //register to events 
-            m_bluetoothAdapter.BluetoothRadioModeChanged += HandleBluetoothRadioModeChanged;
+            //m_bluetoothAdapter.BluetoothRadioModeChanged += HandleBluetoothRadioModeChanged;
+            
             //TODO: TAL register to cell phone events
         }
 
@@ -77,9 +78,8 @@ namespace PowerAwareBluetooth.Controller.AI
                 else
                 {
                     //no rule - go according to learner and battery power
-                    bool learnerDecision = m_learner.ToActivate();
                     res = RadioMode.PowerOff;
-                    if (m_learner.ToActivate())
+                    if (m_learner.CurrentLearntBehaviorIsOn())
                     {
                         //listen to learner only if battery is not low or battery is charging
                         if (!m_BatteryAdapter.BatteryLow || m_BatteryAdapter.BatteryCharching)
@@ -122,32 +122,24 @@ namespace PowerAwareBluetooth.Controller.AI
         }
 
 
-        //TODO: remove this method
         /// <summary>
         /// called when the radio mode was changed
         /// </summary>
-        private void HandleBluetoothRadioModeChanged()
+        public void LearnUserChangedMode(RadioMode userCommandedMode)
         {
-            // if we need to wake up the manager: WakeUp()
-
-            //TODO: Tal - decision maker should remember that user de-activated the bluetooth and 
-            //not turn it on next time the manager wakes up - done
-            if (m_enableLearning)
+            //if radio mode changed to discoverable then learn - "user uses his bluetooth"
+            if (userCommandedMode == RadioMode.Discoverable)
             {
-                //if radio mode changed to discoverable then learn - "user uses his bluetooth"
-                if (m_bluetoothAdapter.RadioMode == RadioMode.Discoverable)
-                {
-                    m_learner.Learn(true);
-                    //don't touch bluetooth for next Constant minutes
-                    m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
-                }
-                else //radio mode is either off or connectable. learn - "user doesn't uses his bluetooth"
-                {
-                    m_learner.Learn(false);
-                    //don't touch bluetooth for next Constant minutes
-                    m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
-                    
-                }
+                m_learner.Learn(true);
+                //don't touch bluetooth for next Constant minutes
+                m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
+            }
+            else //radio mode is either off or connectable. learn - "user doesn't uses his bluetooth"
+            {
+                m_learner.Learn(false);
+                //don't touch bluetooth for next Constant minutes
+                m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
+
             }
             
         }

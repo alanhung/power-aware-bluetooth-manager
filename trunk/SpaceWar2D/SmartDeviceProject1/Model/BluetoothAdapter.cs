@@ -13,7 +13,7 @@ namespace PowerAwareBluetooth.Model
     public class BluetoothAdapter
     {
         #region Constants
-
+        //TODO: remove this constants
         private const string RegistryPath = @"HKEY_LOCAL_MACHINE\System\State\Hardware";
         private const string RegistryValue = "Bluetooth";
 
@@ -114,7 +114,7 @@ namespace PowerAwareBluetooth.Model
         /// </summary>
         //public event BluetoothRadioModeChangedHandler BluetoothRadioModeChanged;
       
-        //#region Protected Methods
+        #region Protected Methods
 
         //public void OnBluetoothRadioModeChanged()
         //{

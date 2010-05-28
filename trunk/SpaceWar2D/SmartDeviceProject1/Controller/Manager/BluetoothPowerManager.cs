@@ -16,6 +16,8 @@ namespace PowerAwareBluetooth.Controller.Manager
         private RuleList m_RuleList;
         private DecisionMaker m_DecisionMaker;
         private bool m_NeedUpdateDecisionMakerRuleList = false;
+        private RadioMode m_lastMode;
+
         public RuleList RulesList
         {
             get { return m_RuleList; }
@@ -80,20 +82,24 @@ namespace PowerAwareBluetooth.Controller.Manager
                         m_DecisionMaker.RulesList = m_RuleList;
                         m_NeedUpdateDecisionMakerRuleList = false;
                     }
+                    if (m_lastMode != m_BluetoothAdapter.RadioMode)
+                    {
+                        //user changed the mode while we were sleeping
+                        m_DecisionMaker.LearnUserChangedMode(m_BluetoothAdapter.RadioMode);
+                    }
+                    else
+                    {
+                        //user didn't change the mode while we were sleeping
 
-                    //disable learning before changing bluetooth state
-                    m_DecisionMaker.EnableLearning = false;
+                        // gets the decision from the DecisionMaker and handles the bluetooth device
+                        m_BluetoothAdapter.RadioMode = m_DecisionMaker.RadioModeDecided();
 
-                    // gets the decision from the DecisionMaker and handles the bluetooth device
-                    //TODO: remove this remark
-                    //m_BluetoothAdapter.RadioMode = m_DecisionMaker.RadioModeDecided();
-
-                    //enable learning
-                    m_DecisionMaker.EnableLearning = true;
-
-                    //sample
-                    //TODO: TAL see that sampling is done once per time slice
-                    m_DecisionMaker.Sample();
+                        //sample
+                        //TODO: TAL see that sampling is done once per time slice
+                        m_DecisionMaker.Sample();
+                    }
+                   
+                    m_lastMode = m_BluetoothAdapter.RadioMode;
 
                     // get the next time to wake-up
                     timeToSleepMillisec = m_DecisionMaker.CalculateCurrentWaitTime();

@@ -142,7 +142,7 @@ namespace PowerAwareBluetooth.Controller.AI
         /// this function refers to Now
         /// </summary>
         /// <returns></returns>
-        public bool ToActivate()
+        public bool CurrentLearntBehaviorIsOn()
         {
             return IsCurrentStateInOnInterval();
         }
@@ -182,68 +182,33 @@ namespace PowerAwareBluetooth.Controller.AI
             int startSlice = currentSlice - SLICES_FOR_MINIMUM_ON_INTERVAL;
             int endSlice = currentSlice + SLICES_FOR_MINIMUM_ON_INTERVAL;
 
-            //handle case where search for on interval need to go around the cycle.
-            int remainingSliceStart = 0;
-            int remainingSliceEnd = 0;
-            bool needRemainingSearch = false;
+            //check that search is within array bound
             if (startSlice < 0)
             {
-                needRemainingSearch = true;
-                //remaining search will search at array end
-                remainingSliceStart = TOTAL_TIME_SLICES_NUM + startSlice;
-                remainingSliceEnd = TOTAL_TIME_SLICES_NUM;
-                startSlice = 0;
+                startSlice = TOTAL_TIME_SLICES_NUM + startSlice;
             }
-            else if (endSlice > TOTAL_TIME_SLICES_NUM)
+            if (endSlice > TOTAL_TIME_SLICES_NUM - 1)
             {
-                needRemainingSearch = true;
-                //remaining search will search at array start
-                remainingSliceStart = 0;
-                remainingSliceEnd = endSlice - TOTAL_TIME_SLICES_NUM;
-                endSlice = TOTAL_TIME_SLICES_NUM;
+                endSlice = endSlice - TOTAL_TIME_SLICES_NUM;
             }
-           
-            //regular search
-            res = SearchIntervalForOnSlice(startSlice, endSlice);
             
-            //remaining search if needed
-            if (res == false && needRemainingSearch)
-            {
-                res = SearchIntervalForOnSlice(remainingSliceStart, remainingSliceEnd);
-            }
-          
-            return res;
-        }
-
-        /// <summary>
-        /// search an interval of the timeline for an "On" slice
-        /// </summary>
-        /// <param name="startSlice">start point for search</param>
-        /// <param name="EndSlice">end point for search</param>
-        /// <returns>true if search found an "On" slice </returns>
-        private bool SearchIntervalForOnSlice(int startSlice, int endSlice)
-        {
-            //check input validity
-            if (startSlice > endSlice || startSlice < 0 || endSlice > TOTAL_TIME_SLICES_NUM)
-            {
-                throw new Exception("Learner.SearchIntervalForOnSlice: search limits out of bound");
-            }
-
-            bool res = false;
-            for (int i = startSlice; i < endSlice; i++)
+            //search for an ON slice
+            for (int i = startSlice; i != endSlice; i++)
             {
                 if (m_timeLine[i].CurrentState >= StateMachine.States.ON)
                 {
                     res = true;
                     break;
                 }
+                if (i == TOTAL_TIME_SLICES_NUM - 1)
+                {
+                    //reached array limit, start from array beginning
+                    i = -1;
+                }
             }
-
+          
             return res;
         }
-
-
-
     }
 
 
