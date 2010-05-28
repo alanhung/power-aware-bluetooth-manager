@@ -86,13 +86,22 @@ namespace PowerAwareBluetooth.Model
         {
             get
             {
-                return m_radio.Mode;
+                if (m_radio != null)
+                {
+                    return m_radio.Mode;
+                }
+                else
+                {
+                    return RadioMode.PowerOff;
+                }
             }
             set
             {
-                // TODO: remove this - debug to avoid null exception
-               
-                //m_radio.Mode = value;
+                if (m_radio != null)
+                {
+                    m_radio.Mode = value;
+                }
+                
                 
             }
         }
