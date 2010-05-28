@@ -85,7 +85,8 @@ namespace PowerAwareBluetooth.Controller.Manager
                     m_DecisionMaker.EnableLearning = false;
 
                     // gets the decision from the DecisionMaker and handles the bluetooth device
-                    m_BluetoothAdapter.RadioMode = m_DecisionMaker.RadioModeDecided();
+                    //TODO: remove this remark
+                    //m_BluetoothAdapter.RadioMode = m_DecisionMaker.RadioModeDecided();
 
                     //enable learning
                     m_DecisionMaker.EnableLearning = true;
@@ -98,7 +99,7 @@ namespace PowerAwareBluetooth.Controller.Manager
                     timeToSleepMillisec = m_DecisionMaker.CalculateCurrentWaitTime();
 
                     // TODO: debug - remove this in the future
-                    timeToSleepMillisec = 1500;
+                    timeToSleepMillisec = 15000;
                 }
 
                 // sleep - no need to lock when sleeping

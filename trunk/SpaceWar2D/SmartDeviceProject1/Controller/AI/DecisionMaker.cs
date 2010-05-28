@@ -122,15 +122,12 @@ namespace PowerAwareBluetooth.Controller.AI
         }
 
 
-
+        //TODO: remove this method
         /// <summary>
         /// called when the radio mode was changed
         /// </summary>
         private void HandleBluetoothRadioModeChanged()
         {
-            //TODO: TAL improve this rotten logic - ignore the times when radio mode is changed
-            //because of the manager operation - done
-
             // if we need to wake up the manager: WakeUp()
 
             //TODO: Tal - decision maker should remember that user de-activated the bluetooth and 
