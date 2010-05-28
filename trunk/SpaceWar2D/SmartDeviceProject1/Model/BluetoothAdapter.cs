@@ -60,8 +60,6 @@ namespace PowerAwareBluetooth.Model
         /// <returns>true if other bluetooth devices are in range</returns>
         public bool SampleForOtherBluetooth()
         {
-            // TODO: remove this - debug because no bluetooth available
-            return false;
             //remember bluetooth last mode of operation
             RadioMode last_mode = m_radio.Mode;
             
@@ -147,17 +145,32 @@ namespace PowerAwareBluetooth.Model
         #endregion Protected Methods
 
         /// <summary>
-        /// Is bluetooth device picking up another bluetooth signal
+        /// Is bluetooth device picking up another device signal and is this device a paired device
         /// </summary>
         /// <returns></returns>
         private bool IsOtherBluetoothExist()
         {
             //DiscoverDevices parameters: max 10 devices, authenticated, remembered, not unknown
 
-            //TODO: see that this is correct 
-            BluetoothDeviceInfo[] btInfo = m_client.DiscoverDevices(10, true, false, false, true);
+            //find all paired device (last parameter = true tells function to retrieve all devices in range).
+            BluetoothDeviceInfo[] btInfoInRange = m_client.DiscoverDevices(10, false, false, false, true);
+            //get all paired device
+            BluetoothDeviceInfo[] btInfoPaired = m_client.DiscoverDevices(10, true, false, false);
+         
+            //iterate on all devices in range and see if any of them is a paired device
+            foreach (BluetoothDeviceInfo deviceInRange in btInfoInRange)
+            {
+                foreach (BluetoothDeviceInfo pairedDevice in btInfoPaired)
+                {
+                    if (deviceInRange.DeviceName == pairedDevice.DeviceName)
+                    {
+                        return true;
+                    }
+                }
+            }
 
-            return (btInfo.Length > 0);
+
+            return false;
 
             //initialize parameters
             //BTSafeNativeMethods.WSAQUERYSET wsQuerySet = new BTSafeNativeMethods.WSAQUERYSET();
