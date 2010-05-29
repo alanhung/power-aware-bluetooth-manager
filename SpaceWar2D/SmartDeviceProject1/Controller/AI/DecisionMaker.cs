@@ -131,16 +131,14 @@ namespace PowerAwareBluetooth.Controller.AI
             if (userCommandedMode == RadioMode.Discoverable)
             {
                 m_learner.Learn(true);
-                //don't touch bluetooth for next Constant minutes
-                m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
             }
             else //radio mode is either off or connectable. learn - "user doesn't uses his bluetooth"
             {
                 m_learner.Learn(false);
-                //don't touch bluetooth for next Constant minutes
-                m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
-
             }
+
+            //don't touch bluetooth for next Constant minutes
+            m_waitAfterUserControl = DateTime.Now.AddMinutes(BluetoothAdapterConstants.Learning.MinimumTimeAfterUserExplicitControl);
             
         }
 
